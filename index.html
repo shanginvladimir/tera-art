@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekaterina Shangina - Künstlerin und Kunstlehrerin</title>
+    <style>
+        /* Основные стили */
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-black: #000000;
+            --accent-gray: #F5F5F5;
+            --text-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Типография */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-black);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+        }
+        
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-white);
+            padding: 1.5rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        
+        /* Секции */
+        section {
+            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Главная секция */
+        .hero {
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        /* Обо мне */
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* три равные колонки */
+            gap: 2rem; /* можно уменьшить отступ, чтобы не было слишком широко */
+            align-items: start; /* чтобы элементы выравнивались сверху */
+        }
+        
+        /* Опыт работы */
+        .experience-item {
+            margin-bottom: 3rem;
+        }
+        
+        .experience-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-date {
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+        
+        /* Галерея */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+        }
+        
+        /* Общий стиль для всех картинок */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;          /* скругленные углы */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* мягкая тень */
+            margin: 0 auto;              /* выравнивание по центру */
+        }
+
+        /* Галерея работ */
+        .gallery-item img {
+            max-width: 350px;   /* ограничим размер картинок в галерее */
+            height: auto;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--primary-white);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Выставки */
+        .exhibitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .exhibition-item {
+            padding: 2rem;
+            background-color: var(--accent-gray);
+        }
+        
+        /* Ученики */
+        .students-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 1.5rem;  /* расстояние между картинками */
+            justify-items: center; /* центрируем картинки в ячейке */
+        }
+
+        .students-gallery img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        
+        /* Проекты */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-item {
+            margin-bottom: 2rem;
+        }
+        
+        /* Контакты */
+        .contact-info {
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Футер */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+        }
+        
+        /* Экспериментальные элементы */
+        .experimental-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--primary-black);
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav>
+        <div class="container">
+            <div class="logo">EKATERINA SHANGINA</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#experience">Erfahrung</a></li>
+                <li><a href="#works">Arbeiten</a></li>
+                <li><a href="#exhibitions">Ausstellungen</a></li>
+                <li><a href="#students">Schüler</a></li>
+                <li><a href="#projects">Projekte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>PORTFOLIO</h1>
+            <p class="hero-subtitle">Künstlerin, Kunstlehrerin.</p>
+            <h2>Ekaterina Shangina</h2>
+        </div>
+        <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
+        <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about">
+        <div class="container">
+            <h2>EIN WENIG ÜBER MICH</h2>
+            <div class="about-content">
+                <div>
+                    <img src="images/main.jpg" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
+                </div>
+                <div>
+                    <p>Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt — zeichne!“ Genau das hat mir geholfen und hilft mir bis heute, mit Schwierigkeiten umzugehen.</p>
+                    <p>Ich habe eine kreative Ausbildung, wenn auch keine klassische Kunstausbildung. Wenn man aber zusammenzählt, wie viele verschiedene Kunstkurse ich besucht habe, wäre es wahrscheinlich falsch zu sagen, dass ich nichts gelernt habe.</p>
+                </div>
+                <div>
+                    <p>Außerdem verbessere ich kontinuierlich meine pädagogischen Fähigkeiten auf verschiedenen Kursen und Seminaren.</p>
+                    <p>Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig und an Wohltätigkeitsveranstaltungen teil; ein Großteil meiner Bilder befindet sich in Privatsammlungen. Ich male mit Acryl, Aquarell, Gouache und grafischen Materialien. Ich praktiziere Pleinair-Malen und Skizzieren nach der Natur.</p>
+                    <p>Meine Leidenschaft für die Arbeit mit jungen Menschen habe ich seit 2019 als ehrenamtliche Lehrerin beim Jugendverein IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit so viel Freude bereitete, entschloss ich mich 2024, meine künstlerische Expertise und meine pädagogische Begeisterung zum Beruf zu machen und mich als selbstständige Künstlerin und Kunstlehrerin zu registrieren. Seither unterrichte ich mit großer Freude eigene private Gruppen sowie Online-Kurse.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Опыт -->
+    <section id="experience" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>ERFAHRUNG</h2>
+            <div class="experience-item">
+                <h3>Kunstlehrerin im Jugendclub IUWENTUS</h3>
+                <p class="experience-date">2021 – heute</p>
+            </div>
+            <div class="experience-item">
+                <h3>Selbstständigkeit</h3>
+                <p class="experience-date">2024 – heute</p>
+                <p>Kunstlehrerin für Kinder ab 5 Jahren und Jugendliche. Organisatorin von Workshops und Außenseminaren. Online-Zeichenunterricht.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Работы -->
+    <section id="works">
+        <div class="container">
+            <h2>AUSGEWÄHLTE ARBEITEN (ACRYL)</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="images/IMG_20230420_192717.jpg" alt="Wilde Blume">
+                    
+                    <div class="gallery-caption">
+                        <h3>"Wüstenstrand"</h3>
+                        <p>Acryl, Leinwand auf Kelirahmen, 40×50 cm</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x400" alt="Wilde Blume">
+                    <div class="gallery-caption">
+                        <h3>"Wilde Blume"</h3>
+                        <p>Acryl, Karton/Leinwand, 40×50 cm</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x400" alt="Mohnfeld">
+                    <div class="gallery-caption">
+                        <h3>"Mohnfeld"</h3>
+                        <p>Acryl, Karton/Leinwand, 50×70 cm</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x400" alt="Stillleben mit Kürbis">
+                    <div class="gallery-caption">
+                        <h3>"Stillleben mit Kürbis"</h3>
+                        <p>Acryl, Leinwand auf Kelirahmen, 50×70 cm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Выставки -->
+    <section id="exhibitions" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>AUSSTELLUNGEN UND VERANSTALTUNGEN</h2>
+            <div class="exhibitions-grid">
+                <div class="exhibition-item">
+                    <h3>Nacht der Kunst, Leipzig 2024</h3>
+                    <p>Die Ausstellung fand in einer alten katholischen Kirche in Deutschland statt (ich nehme seit 2019 jedes Jahr teil).</p>
+                </div>
+                <div class="exhibition-item">
+                    <h3>Wohltätigkeitsausstellung „Von Herz zu Herz“ 2025</h3>
+                    <p>Ein Teil des Verkaufserlöses der Bilder wird zur Unterstützung krebskranker Kinder gespendet. Ich nehme seit 2018 jährlich teil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ученики -->
+    <section id="students">
+        <div class="container">
+            <h2>MEINE SCHÜLER</h2>
+            <div class="students-gallery">
+                <img src="images/IMG_20230602_185012_1.jpg" alt="Student work">
+                <img src="images/IMG_20231201_185900.jpg" alt="Student work">
+                <img src="images/IMG_20231201_175335.jpg" alt="Student work">
+                <img src="https://via.placeholder.com/300x300" alt="Student work">
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section id="projects" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>ANDERE PROJEKTE</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <h3>Workshop „Goldener Mond“</h3>
+                    <p>mit struktureller Paste und Blattgold.</p>
+                </div>
+                <div class="project-item">
+                    <h3>Oster-Ausstellung von Kinderarbeiten</h3>
+                    <p>in der russischen Kirche in Deutschland, 2024.</p>
+                </div>
+                <div class="project-item">
+                    <h3>Workshop „Leckerer Sketching“</h3>
+                </div>
+                <div class="project-item">
+                    <h3>Organisation des internationalen Wettbewerbs 2022–2024 „Tu Gutes“</h3>
+                </div>
+                <div class="project-item">
+                    <h3>Skizzieren im Museum „Naturkunst“, Leipzig 2024</h3>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
+            <div class="students-gallery" style="margin-top: 2rem;">
+                <img src="images/IMG_20230519_181654.jpg" alt="Student work">
+                <img src="images/" alt="Student work">
+                <img src="https://via.placeholder.com/250x250" alt="Student work">
+                <img src="https://via.placeholder.com/250x250" alt="Student work">
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact">
+        <div class="container">
+            <h2>KONTAKT</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>shanginaes@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>+491762310221</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📷</div>
+                    <div>@Katjashangina</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Ekaterina Shangina. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Наблюдаем за секциями
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
