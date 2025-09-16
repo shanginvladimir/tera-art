@@ -280,6 +280,12 @@
             z-index: -1;
         }
         
+        .mobile-menu-toggle {
+            display: none; /* скрыта на больших экранах */
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
         /* Адаптивность */
         @media (max-width: 768px) {
             h1 {
@@ -298,6 +304,31 @@
             .nav-links {
                 display: none;
             }
+
+            .nav-links {
+                display: none; /* скрыта по умолчанию */
+                flex-direction: column;
+                background-color: var(--primary-white);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                padding: 1rem 0;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .mobile-menu-toggle {
+                display: block; /* показываем на мобильных */
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -306,6 +337,7 @@
     <nav>
         <div class="container">
             <div class="logo">EKATERINA SHANGINA</div>
+            <div class="mobile-menu-toggle">☰</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">Über mich</a></li>
@@ -535,6 +567,13 @@
             section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(section);
         });
+
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        toggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+});
     </script>
 </body>
 </html>
