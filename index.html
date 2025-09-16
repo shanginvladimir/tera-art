@@ -167,7 +167,7 @@
         /* Галерея */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive columns */
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -190,8 +190,11 @@
 
         /* Галерея работ */
         .gallery-item img {
-            max-width: 350px;   /* ограничим размер картинок в галерее */
+            width: 100%;      /* Responsive width */
+            max-width: 350px; /* Limit max size */
             height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         .gallery-item:hover img {
@@ -579,7 +582,16 @@
 
         toggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-});
+        });
+
+        // Close mobile menu on menu item click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
 
         // Hide/show nav on scroll direction
         let lastScrollTop = 0;
