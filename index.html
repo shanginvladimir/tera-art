@@ -396,6 +396,31 @@
         .lightbox button.prev { left: 0; }
         .lightbox button.next { right: 0; }
 
+
+        .show-more-btn {
+            flex: 0 0 auto;
+            min-width: 200px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #444, #222);
+            color: white;
+            border: 2px solid #666;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .show-more-btn:hover {
+            background: linear-gradient(135deg, #666, #333);
+            transform: scale(1.05);
+            border-color: #aaa;
+        }
     </style>
 </head>
 <body>
@@ -686,14 +711,17 @@
                             if (idx >= 5) item.style.display = "none"; // hide extra
                         });
 
-                        // add "Show more" button
-                        const button = document.createElement("button");
-                        button.textContent = "Show more";
-                        button.onclick = () => {
+                        // Fancy "Show more" card
+                        const showMore = document.createElement("div");
+                        showMore.className = "show-more-btn";
+                        showMore.textContent = "+ Show more";
+
+                        showMore.onclick = () => {
                             items.forEach(item => (item.style.display = "flex"));
-                            button.remove();
+                            showMore.remove();
                         };
-                        gallery.after(button);
+
+                        gallery.appendChild(showMore);
                     }
 
                 } catch (err) {
