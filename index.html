@@ -166,12 +166,12 @@
         
         /* Галерея */
         .gallery {
-            width: 100%;
-            max-width: 1200px; /* optional */
-            margin: 3rem auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
+            margin: 3rem auto;
+            width: 100%;       /* allow it to fill screen */
+            max-width: none;   /* remove any limiting max-width */
         }
 
         .gallery-item {
