@@ -681,16 +681,14 @@
             }
         }
 
-        // Run after page loads
-        document.addEventListener("DOMContentLoaded", loadGalleries);
-
         document.addEventListener("DOMContentLoaded", () => {
+            loadGalleries();
             let currentGallery = [];
             let currentIndex = 0;
 
             const lightbox = document.getElementById("lightbox");
             const lightboxImg = lightbox.querySelector(".lightbox-img");
-            const captionDiv = lightbox.querySelector(".lightbox-caption");
+            const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
             const closeBtn = lightbox.querySelector(".close");
             const prevBtn = lightbox.querySelector(".prev");
             const nextBtn = lightbox.querySelector(".next");
@@ -705,7 +703,7 @@
             function updateLightbox() {
                 const item = currentGallery[currentIndex];
                 lightboxImg.src = item.src;
-                captionDiv.textContent = item.caption;
+                captionDivLightbox.textContent = item.caption;
             }
 
             function closeLightbox() {
@@ -726,17 +724,25 @@
             prevBtn.addEventListener("click", prevImage);
             nextBtn.addEventListener("click", nextImage);
 
-            // Make gallery items clickable
+            // Make gallery captions clickable instead of images
             const galleries = document.querySelectorAll(".gallery");
             galleries.forEach(galleryDiv => {
-                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item img"));
-                const galleryData = items.map(img => ({
-                    src: img.src,
-                    caption: img.alt || ""
-                }));
-                items.forEach((img, index) => {
-                    img.style.cursor = "pointer";
-                    img.addEventListener("click", () => openLightbox(index, galleryData));
+                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
+                const galleryData = items.map(item => {
+                    const img = item.querySelector("img");
+                    const captionDiv = item.querySelector(".gallery-caption h3");
+                    return {
+                        src: img.src,
+                        caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
+                    };
+                });
+
+                items.forEach((item, index) => {
+                    const captionDiv = item.querySelector(".gallery-caption");
+                    if (captionDiv) {
+                        captionDiv.style.cursor = "pointer";
+                        captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
+                    }
                 });
             });
 
@@ -745,7 +751,7 @@
                 if (e.target === lightbox) closeLightbox();
             });
 
-            // Optional: allow arrow keys
+            // Arrow keys
             document.addEventListener("keydown", e => {
                 if (lightbox.style.display !== "flex") return;
                 if (e.key === "ArrowLeft") prevImage();
