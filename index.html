@@ -442,12 +442,7 @@
     <section id="students">
         <div class="container">
             <h2>MEINE SCHÜLER</h2>
-            <div class="students-gallery">
-                <img src="images/IMG_20230602_185012_1.jpg" alt="Student work">
-                <img src="images/IMG_20231201_185900.jpg" alt="Student work">
-                <img src="images/IMG_20231201_175335.jpg" alt="Student work">
-                <img src="https://via.placeholder.com/300x300" alt="Student work">
-            </div>
+            <div class="gallery" folders="students"/>
         </div>
     </section>
 
@@ -455,8 +450,9 @@
     <section id="projects" style="background-color: #F5F5F5;">
         <div class="container">
             <h2>ANDERE PROJEKTE</h2>
-            <div class="projects-grid">
-                <div class="project-item">
+            <div class="gallery">
+                <div folder="projects" class="gallery"></div>
+                <!-- <div class="project-item">
                     <h3>Workshop „Goldener Mond“</h3>
                     <p>mit struktureller Paste und Blattgold.</p>
                 </div>
@@ -472,17 +468,13 @@
                 </div>
                 <div class="project-item">
                     <h3>Skizzieren im Museum „Naturkunst“, Leipzig 2024</h3>
-                </div>
+                </div> -->
             </div>
             
             <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
-            <div class="students-gallery" style="margin-top: 2rem;">
-                <img src="images/IMG_20230519_181654.jpg" alt="Student work">
-                <img src="images/" alt="Student work">
-                <img src="https://via.placeholder.com/250x250" alt="Student work">
-                <img src="https://via.placeholder.com/250x250" alt="Student work">
-            </div>
-        </div>
+            <div folder="student-works" class="gallery"></div>
+            <h3 style="margin-top: 3rem;">ONLINEUNTERRICHTE</h3>
+            <div folder="online-lessons" class="gallery"></div>
     </section>
 
     <!-- Контакты -->
