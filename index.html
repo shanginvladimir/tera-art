@@ -416,37 +416,7 @@
     <section id="works">
         <div class="container">
             <h2>AUSGEWÄHLTE ARBEITEN</h2>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="images/IMG_20230420_192717.jpg" alt="Wilde Blume">
-                    
-                    <div class="gallery-caption">
-                        <h3>"Wüstenstrand"</h3>
-                        <p>Acryl, Leinwand auf Kelirahmen, 40×50 cm</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/IMG_20231007_160039_edit_99652042956147.jpg" alt="Wilde Blume">
-                    <div class="gallery-caption">
-                        <h3>"Wilde Blume"</h3>
-                        <p>Acryl, Karton/Leinwand, 40×50 cm</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/IMG_20230426_104611.jpg" alt="Mohnfeld">
-                    <div class="gallery-caption">
-                        <h3>"Mohnfeld"</h3>
-                        <p>Acryl, Karton/Leinwand, 50×70 cm</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x400" alt="Stillleben mit Kürbis">
-                    <div class="gallery-caption">
-                        <h3>"Stillleben mit Kürbis"</h3>
-                        <p>Acryl, Leinwand auf Kelirahmen, 50×70 cm</p>
-                    </div>
-                </div>
-            </div>
+            <div folder="my-works" class="gallery"></div>
         </div>
     </section>
 
@@ -613,6 +583,51 @@
 
         // Initialize nav as visible
         nav.classList.add('show-on-scroll');
+
+        async function loadGalleries() {
+            const galleries = document.querySelectorAll(".gallery[folder]");
+
+            for (const gallery of galleries) {
+                const folder = gallery.getAttribute("folder");
+                const jsonPath = `/images/${folder}/index.json`;
+
+                try {
+                    const response = await fetch(jsonPath);
+                    if (!response.ok) throw new Error(`Failed to load ${jsonPath}`);
+                    const files = await response.json();
+
+                    files.forEach(file => {
+                        // Remove extension
+                        const name = file.replace(/\.[^/.]+$/, "");
+
+                        // Split into caption + description
+                        let [caption, description] = name.split(" - ");
+                        caption = caption || "Untitled";
+                        description = description || "";
+
+                        // Create gallery item
+                        const item = document.createElement("div");
+                        item.className = "gallery-item";
+
+                        item.innerHTML = `
+                            <img src="/images/${folder}/${file}" alt="${caption}">
+                            <div class="gallery-caption">
+                                <h3>"${caption}"</h3>
+                                <p>${description}</p>
+                            </div>
+                        `;
+
+                        gallery.appendChild(item);
+                    });
+                } catch (err) {
+                    console.error(err);
+                    gallery.innerHTML = `<p>Failed to load gallery: ${folder}</p>`;
+                }
+            }
+        }
+
+        // Run after page loads
+        document.addEventListener("DOMContentLoaded", loadGalleries);
     </script>
 </body>
 </html>
