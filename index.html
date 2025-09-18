@@ -1,829 +1,835 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ekaterina Shangina - Künstlerin und Kunstlehrerin</title>
-    <style>
-        /* Основные стили */
-        :root {
-            --primary-white: #FFFFFF;
-            --primary-black: #000000;
-            --accent-gray: #F5F5F5;
-            --text-gray: #333333;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        body {
-            background-color: var(--primary-white);
-            color: var(--primary-black);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Типография */
-        h1, h2, h3 {
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        h2::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary-black);
-        }
-        
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: var(--text-gray);
-        }
-        
-        /* Навигация */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-white);
-            padding: 1.5rem 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease; /* Add transition for smooth hide/show */
-        }
-        nav.hide-on-scroll {
-            transform: translateY(-100%);
-        }
-        nav.show-on-scroll {
-            transform: translateY(0);
-        }
-        
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-black);
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-        
-        /* Секции */
-        section {
-            padding: 6rem 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        
-        /* Главная секция */
-        .hero {
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-        
-        /* Обо мне */
-        .about-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* три равные колонки */
-            gap: 2rem; /* можно уменьшить отступ, чтобы не было слишком широко */
-            align-items: start; /* чтобы элементы выравнивались сверху */
-        }
-        
-        /* Опыт работы */
-        .experience-item {
-            margin-bottom: 3rem;
-        }
-        
-        .experience-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .experience-date {
-            font-style: italic;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-        
-        /* Галерея */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin: 3rem auto;
-            width: 100%;       /* allow it to fill screen */
-            max-width: none;   /* remove any limiting max-width */
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 1/1;
-        }
-        
-        /* Общий стиль для всех картинок */
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;          /* скругленные углы */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* мягкая тень */
-            margin: 0 auto;              /* выравнивание по центру */
-        }
-
-        /* Галерея работ */
-        .gallery-item img {
-            width: 100%;      /* Responsive width */
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            object-fit: cover;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--primary-white);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .gallery-caption > p {
-            color: var(--primary-white);
-        }        
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-        }
-        
-        
-        /* Выставки */
-        .exhibitions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .exhibition-item {
-            padding: 2rem;
-            background-color: var(--accent-gray);
-        }
-        
-        /* Ученики */
-        .students-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1.5rem;  /* расстояние между картинки */
-            justify-items: center; /* центрируем картинки в ячейке */
-        }
-
-        .students-gallery img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        
-        /* Проекты */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .project-item {
-            margin-bottom: 2rem;
-        }
-        
-        /* Контакты */
-        .contact-info {
-            margin-top: 2rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-icon {
-            margin-right: 1rem;
-            font-size: 1.5rem;
-        }
-        
-        /* Футер */
-        footer {
-            padding: 3rem 0;
-            text-align: center;
-            background-color: var(--primary-black);
-            color: var(--primary-white);
-        }
-        
-        /* Экспериментальные элементы */
-        .experimental-element {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border: 2px solid var(--primary-black);
-            opacity: 0.1;
-            z-index: -1;
-        }
-        
-        .mobile-menu-toggle {
-            display: none; /* скрыта на больших экранах */
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
+    <!DOCTYPE html>
+    <html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ekaterina Shangina - Künstlerin und Kunstlehrerin</title>
+        <style>
+            /* Основные стили */
+            :root {
+                --primary-white: #FFFFFF;
+                --primary-black: #000000;
+                --accent-gray: #F5F5F5;
+                --text-gray: #333333;
+            }
+            
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+            }
+            
+            body {
+                background-color: var(--primary-white);
+                color: var(--primary-black);
+                line-height: 1.6;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            /* Типография */
+            h1, h2, h3 {
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+            
             h1 {
-                font-size: 3rem;
+                font-size: 4rem;
+                margin-bottom: 1rem;
             }
             
             h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+                position: relative;
             }
             
+            h2::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background-color: var(--primary-black);
+            }
+            
+            p {
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+                color: var(--text-gray);
+            }
+            
+            /* Навигация */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-white);
+                padding: 1.5rem 0;
+                z-index: 1000;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease; /* Add transition for smooth hide/show */
+            }
+            nav.hide-on-scroll {
+                transform: translateY(-100%);
+            }
+            nav.show-on-scroll {
+                transform: translateY(0);
+            }
+            
+            nav .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            
+            .nav-links {
+                display: flex;
+                list-style: none;
+            }
+            
+            .nav-links li {
+                margin-left: 2rem;
+            }
+            
+            .nav-links a {
+                text-decoration: none;
+                color: var(--primary-black);
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links a:hover {
+                opacity: 0.7;
+            }
+            
+            /* Секции */
+            section {
+                padding: 6rem 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+            }
+            
+            /* Главная секция */
+            .hero {
+                text-align: center;
+                position: relative;
+            }
+            
+            .hero-content {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.8;
+            }
+            
+            /* Обо мне */
             .about-content {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); /* три равные колонки */
+                gap: 2rem; /* можно уменьшить отступ, чтобы не было слишком широко */
+                align-items: start; /* чтобы элементы выравнивались сверху */
+            }
+            
+            /* Опыт работы */
+            .experience-item {
+                margin-bottom: 3rem;
+            }
+            
+            .experience-item h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .experience-date {
+                font-style: italic;
+                margin-bottom: 1rem;
+                opacity: 0.7;
+            }
+            
+            /* Галерея */
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 2rem;
+                margin: 3rem auto;
+                width: 100%;       /* allow it to fill screen */
+                max-width: none;   /* remove any limiting max-width */
+            }
+
+            .gallery-item {
+                position: relative;
+                overflow: hidden;
+                aspect-ratio: 1/1;
+            }
+            
+            /* Общий стиль для всех картинок */
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;          /* скругленные углы */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* мягкая тень */
+                margin: 0 auto;              /* выравнивание по центру */
+            }
+
+            /* Галерея работ */
+            .gallery-item img {
+                width: 100%;      /* Responsive width */
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                object-fit: cover;
+            }
+
+            .gallery-item:hover img {
+                transform: scale(1.05);
+            }
+            
+            .gallery-caption {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 1rem;
+                background: rgba(0, 0, 0, 0.7);
+                color: var(--primary-white);
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+                cursor: pointer;
+            }
+
+            .gallery-caption > p {
+                color: var(--primary-white);
+            }        
+            .gallery-item:hover .gallery-caption {
+                transform: translateY(0);
+            }
+            
+            
+            /* Выставки */
+            .exhibitions-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 2rem;
             }
             
-            .nav-links {
-                display: none;
+            .exhibition-item {
+                padding: 2rem;
+                background-color: var(--accent-gray);
+            }
+            
+            /* Ученики */
+            .students-gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+                gap: 1.5rem;  /* расстояние между картинки */
+                justify-items: center; /* центрируем картинки в ячейке */
             }
 
-            .nav-links {
-                display: none; /* скрыта по умолчанию */
-                flex-direction: column;
-                background-color: var(--primary-white);
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                padding: 1rem 0;
+            .students-gallery img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
-
-            .nav-links li {
-                margin: 1rem 0;
-                text-align: center;
-            }
-
-            .mobile-menu-toggle {
-                display: block; /* показываем на мобильных */
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        /* Lightbox overlay - FIXED */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0; 
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .lightbox-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .lightbox img.lightbox-img {
-            max-width: 100%;
-            max-height: 70vh;
-            margin: auto;
-            display: block;
-            border-radius: 8px;
-        }
-
-        .lightbox-caption {
-            color: #fff;
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 1.2rem;
-            max-width: 80%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 8px;
-        }
-
-        .lightbox .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 10000;
-        }
-
-        .lightbox button.prev,
-        .lightbox button.next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-            padding: 15px;
-            user-select: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-        }
-
-        .lightbox button.prev { 
-            left: 20px; 
-        }
-        .lightbox button.next { 
-            right: 20px; 
-        }
-
-        .lightbox button.prev:hover,
-        .lightbox button.next:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        .show-more-btn {
-            flex: 0 0 auto;
-            min-width: 200px;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #444, #222);
-            color: white;
-            border: 2px solid #666;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .show-more-btn:hover {
-            background: linear-gradient(135deg, #666, #333);
-            transform: scale(1.05);
-            border-color: #aaa;
-        }
-    </style>
-</head>
-<body>
-    <!-- Навигация -->
-    <nav>
-        <div class="container">
-            <div class="logo">EKATERINA SHANGINA</div>
-            <div class="mobile-menu-toggle">☰</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">Über mich</a></li>
-                <li><a href="#experience">Erfahrung</a></li>
-                <li><a href="#works">Arbeiten</a></li>
-                <li><a href="#exhibitions">Ausstellungen</a></li>
-                <li><a href="#students">Schüler</a></li>
-                <li><a href="#projects">Projekte</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div id="lightbox" class="lightbox">
-        <span class="close">&times;</span>
-        <div class="lightbox-content">
-            <img class="lightbox-img" src="" alt="">
-            <div class="lightbox-caption"></div>
-        </div>
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
-    </div>
-    <!-- Главная секция -->
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <h1>PORTFOLIO</h1>
-            <p class="hero-subtitle">Künstlerin, Kunstlehrerin.</p>
-            <h2>Ekaterina Shangina</h2>
-        </div>
-        <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
-        <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
-    </section>
-
-    <!-- Обо мне -->
-    <section id="about">
-        <div class="container">
-            <h2>EIN WENIG ÜBER MICH</h2>
-            <div class="about-content">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
-                </div>
-                <div>
-                    <p>Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt — zeichne!“ Genau das hat mir geholfen und hilft mir bis heute, mit Schwierigkeiten umzugehen.</p>
-                    <p>Ich habe eine kreative Ausbildung, wenn auch keine klassische Kunstausbildung. Wenn man aber zusammenzählt, wie viele verschiedene Kunstkurse ich besucht habe, wäre es wahrscheinlich falsch zu sagen, dass ich nichts gelernt habe.</p>
-                </div>
-                <div>
-                    <p>Außerdem verbessere ich kontinuierlich meine pädagogischen Fähigkeiten auf verschiedenen Kursen und Seminaren.</p>
-                    <p>Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig und an Wohltätigkeitsveranstaltungen teil; ein Großteil meiner Bilder befindet sich in Privatsammlungen. Ich male mit Acryl, Aquarell, Gouache und grafischen Materialien. Ich praktiziere Pleinair-Malen und Skizzieren nach der Natur.</p>
-                    <p>Meine Leidenschaft für die Arbeit mit jungen Menschen habe ich seit 2019 als ehrenamtliche Lehrerin beim Jugendverein IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit so viel Freude bereitete, entschloss ich mich 2024, meine künstlerische Expertise und meine pädagogische Begeisterung zum Beruf zu machen und mich als selbstständige Künstlerin und Kunstlehrerin zu registrieren. Seither unterrichte ich mit großer Freude eigene private Gruppen sowie Online-Kurse.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Опыт -->
-    <section id="experience" style="background-color: #F5F5F5;">
-        <div class="container">
-            <h2>ERFAHRUNG</h2>
-            <div class="experience-item">
-                <h3>Kunstlehrerin im Jugendclub IUWENTUS</h3>
-                <p class="experience-date">2021 – heute</p>
-            </div>
-            <div class="experience-item">
-                <h3>Selbstständigkeit</h3>
-                <p class="experience-date">2024 – heute</p>
-                <p>Kunstlehrerin für Kinder ab 5 Jahren und Jugendliche. Organisatorin von Workshops und Außenseminaren. Online-Zeichenunterricht.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Работы -->
-    <section id="works">
-        <div class="container">
-            <h2>AUSGEWÄHLTE ARBEITEN</h2>
-            <div folder="my-works" class="gallery">
-                <!-- Sample gallery items for demonstration -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9vayUyMGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 1">
-                    <div class="gallery-caption">
-                        <h3>"Sunset Dreams"</h3>
-                        <p>Acrylic on canvas, 2023</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 2">
-                    <div class="gallery-caption">
-                        <h3>"Ocean Breeze"</h3>
-                        <p>Watercolor, 2022</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 3">
-                    <div class="gallery-caption">
-                        <h3>"Mountain Silence"</h3>
-                        <p>Oil on canvas, 2024</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Выставки -->
-    <section id="exhibitions" style="background-color: #F5F5F5;">
-        <div class="container">
-            <h2>AUSSTELLUNGEN UND VERANSTALTUNGEN</h2>
-            <div class="exhibitions-grid">
-                <div class="exhibition-item">
-                    <h3>Nacht der Kunst, Leipzig 2024</h3>
-                    <p>Die Ausstellung fand in einer alten katholischen Kirche in Deutschland statt (ich nehme seit 2019 jedes Jahr teil).</p>
-                </div>
-                <div class="exhibition-item">
-                    <h3>Wohltätigkeitsausstellung „Von Herz zu Herz“ 2025</h3>
-                    <p>Ein Teil des Verkaufserlöses der Bilder wird zur Unterstützung krebskranker Kinder gespendet. Ich nehme seit 2018 jährlich teil.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ученики -->
-    <section id="students">
-        <div class="container">
-            <h2>MEINE SCHÜLER</h2>
-            <div class="gallery" folder="students">
-                <!-- Sample student works for demonstration -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXJ0JTIwc3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Student work 1">
-                    <div class="gallery-caption">
-                        <h3>"Colorful Expression"</h3>
-                        <p>Student: Anna Müller, Age 12</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFydCUyMHN0dWRlbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Student work 2">
-                    <div class="gallery-caption">
-                        <h3>"Abstract Thoughts"</h3>
-                        <p>Student: Lukas Schmidt, Age 14</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Проекты -->
-    <section id="projects" style="background-color: #F5F5F5;">
-        <div class="container">
-            <h2>ANDERE PROJEKTE</h2>
-            <div class="gallery">
-                <div folder="projects" class="gallery">
-                    <!-- Sample projects for demonstration -->
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1460661419208-fd4e0eea2d5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGFydCUyMHByb2plY3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Project 1">
-                        <div class="gallery-caption">
-                            <h3>"Golden Moon Workshop"</h3>
-                            <p>With structural paste and gold leaf</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
-            <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
-            <div folder="student-works" class="gallery"></div>
-            <h3 style="margin-top: 3rem;">ONLINEUNTERRICHTE</h3>
-            <div folder="online-lessons" class="gallery"></div>
-    </section>
+            
+            /* Проекты */
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+            
+            .project-item {
+                margin-bottom: 2rem;
+            }
+            
+            /* Контакты */
+            .contact-info {
+                margin-top: 2rem;
+            }
+            
+            .contact-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-icon {
+                margin-right: 1rem;
+                font-size: 1.5rem;
+            }
+            
+            /* Футер */
+            footer {
+                padding: 3rem 0;
+                text-align: center;
+                background-color: var(--primary-black);
+                color: var(--primary-white);
+            }
+            
+            /* Экспериментальные элементы */
+            .experimental-element {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                border: 2px solid var(--primary-black);
+                opacity: 0.1;
+                z-index: -1;
+            }
+            
+            .mobile-menu-toggle {
+                display: none; /* скрыта на больших экранах */
+                font-size: 2rem;
+                cursor: pointer;
+            }
 
-    <!-- Контакты -->
-    <section id="contact">
-        <div class="container">
-            <h2>KONTAKT</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div>shanginaes@gmail.com</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📷</div>
-                    <div>@Katjashangina</div>
+            /* Адаптивность */
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 3rem;
+                }
+                
+                h2 {
+                    font-size: 2rem;
+                }
+                
+                .about-content {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                
+                .nav-links {
+                    display: none;
+                }
+
+                .nav-links {
+                    display: none; /* скрыта по умолчанию */
+                    flex-direction: column;
+                    background-color: var(--primary-white);
+                    position: absolute;
+                    top: 70px;
+                    left: 0;
+                    width: 100%;
+                    padding: 1rem 0;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                }
+
+                .nav-links li {
+                    margin: 1rem 0;
+                    text-align: center;
+                }
+
+                .mobile-menu-toggle {
+                    display: block; /* показываем на мобильных */
+                }
+
+                .nav-links.active {
+                    display: flex;
+                }
+            }
+
+            /* Lightbox overlay */
+            .lightbox {
+                display: none;
+                position: fixed;
+                z-index: 999;
+                top: 0; 
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                flex-direction: column; /* Added to stack elements vertically */
+            }
+
+            .lightbox-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 90%;
+                max-height: 90%;
+            }
+
+            .lightbox img.lightbox-img {
+                max-width: 100%;
+                max-height: 80vh;
+                margin: auto;
+                display: block;
+            }
+
+            .lightbox-caption {
+                color: #fff;
+                text-align: center;
+                margin-top: 1rem;
+                font-size: 1.2rem;
+                width: 100%; /* Ensure caption spans full width */
+            }
+
+            .lightbox .close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                color: #fff;
+                font-size: 40px;
+                cursor: pointer;
+            }
+
+            .lightbox button.prev,
+            .lightbox button.next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 50px;
+                cursor: pointer;
+                padding: 0 20px;
+                user-select: none;
+            }
+
+            .lightbox button.prev { left: 0; }
+            .lightbox button.next { right: 0; } 
+
+            .show-more-btn {
+                flex: 0 0 auto;
+                min-width: 200px;
+                aspect-ratio: 1 / 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                font-weight: bold;
+                background: linear-gradient(135deg, #444, #222);
+                color: white;
+                border: 2px solid #666;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .show-more-btn:hover {
+                background: linear-gradient(135deg, #666, #333);
+                transform: scale(1.05);
+                border-color: #aaa;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Навигация -->
+        <nav>
+            <div class="container">
+                <div class="logo">EKATERINA SHANGINA</div>
+                <div class="mobile-menu-toggle">☰</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Über mich</a></li>
+                    <li><a href="#experience">Erfahrung</a></li>
+                    <li><a href="#works">Arbeiten</a></li>
+                    <li><a href="#exhibitions">Ausstellungen</a></li>
+                    <li><a href="#students">Schüler</a></li>
+                    <li><a href="#projects">Projekte</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="lightbox" class="lightbox">
+            <span class="close">&times;</span>
+            <div class="lightbox-content">
+                <img class="lightbox-img" src="" alt="">
+                <div class="lightbox-caption"></div>
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+        <!-- Главная секция -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1>PORTFOLIO</h1>
+                <p class="hero-subtitle">Künstlerin, Kunstlehrerin.</p>
+                <h2>Ekaterina Shangina</h2>
+            </div>
+            <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
+            <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
+        </section>
+
+        <!-- Обо мне -->
+        <section id="about">
+            <div class="container">
+                <h2>EIN WENIG ÜBER MICH</h2>
+                <div class="about-content">
+                    <div>
+                        <img src="images/main.jpg" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
+                    </div>
+                    <div>
+                        <p>Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt — zeichne!“ Genau das hat mir geholfen und hilft mir bis heute, mit Schwierigkeiten umzugehen.</p>
+                        <p>Ich habe eine kreative Ausbildung, wenn auch keine klassische Kunstausbildung. Wenn man aber zusammenzählt, wie viele verschiedene Kunstkurse ich besucht habe, wäre es wahrscheinlich falsch zu sagen, dass ich nichts gelernt habe.</p>
+                    </div>
+                    <div>
+                        <p>Außerdem verbessere ich kontinuierlich meine pädagogischen Fähigkeiten auf verschiedenen Kursen und Seminaren.</p>
+                        <p>Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig und an Wohltätigkeitsveranstaltungen teil; ein Großteil meiner Bilder befindet sich in Privatsammlungen. Ich male mit Acryl, Aquarell, Gouache und grafischen Materialien. Ich praktiziere Pleinair-Malen und Skizzieren nach der Natur.</p>
+                        <p>Meine Leidenschaft für die Arbeit mit jungen Menschen habe ich seit 2019 als ehrenamtliche Lehrerin beim Jugendverein IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit so viel Freude bereitete, entschloss ich mich 2024, meine künstlerische Expertise und meine pädagogische Begeisterung zum Beruf zu machen und mich als selbstständige Künstlerin und Kunstlehrerin zu registrieren. Seither unterrichte ich mit großer Freude eigene private Gruppen sowie Online-Kurse.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Футер -->
-    <footer>
-        <div class="container">
-            <p>© 2024 Ekaterina Shangina. Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
+        <!-- Опыт -->
+        <section id="experience" style="background-color: #F5F5F5;">
+            <div class="container">
+                <h2>ERFAHRUNG</h2>
+                <div class="experience-item">
+                    <h3>Kunstlehrerin im Jugendclub IUWENTUS</h3>
+                    <p class="experience-date">2021 – heute</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Selbstständigkeit</h3>
+                    <p class="experience-date">2024 – heute</p>
+                    <p>Kunstlehrerin für Kinder ab 5 Jahren und Jugendliche. Organisatorin von Workshops und Außenseminaren. Online-Zeichenunterricht.</p>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        // Плавная прокрутка для навигации
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        <!-- Работы -->
+        <section id="works">
+            <div class="container">
+                <h2>AUSGEWÄHLTE ARBEITEN</h2>
+                <div folder="my-works" class="gallery"></div>
+            </div>
+        </section>
+
+        <!-- Выставки -->
+        <section id="exhibitions" style="background-color: #F5F5F5;">
+            <div class="container">
+                <h2>AUSSTELLUNGEN UND VERANSTALTUNGEN</h2>
+                <div class="exhibitions-grid">
+                    <div class="exhibition-item">
+                        <h3>Nacht der Kunst, Leipzig 2024</h3>
+                        <p>Die Ausstellung fand in einer alten katholischen Kirche in Deutschland statt (ich nehme seit 2019 jedes Jahr teil).</p>
+                    </div>
+                    <div class="exhibition-item">
+                        <h3>Wohltätigkeitsausstellung „Von Herz zu Herz“ 2025</h3>
+                        <p>Ein Teil des Verkaufserlöses der Bilder wird zur Unterstützung krebskranker Kinder gespendet. Ich nehme seit 2018 jährlich teil.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ученики -->
+        <section id="students">
+            <div class="container">
+                <h2>MEINE SCHÜLER</h2>
+                <div class="gallery" folder="students"></div>
+            </div>
+        </section>
+
+        <!-- Проекты -->
+        <section id="projects" style="background-color: #F5F5F5;">
+            <div class="container">
+                <h2>ANDERE PROJEKTE</h2>
+                <div class="gallery">
+                    <div folder="projects" class="gallery"></div>
+                </div>
                 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Анимация появления элементов при прокрутке
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Наблюдаем за секциями
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = 0;
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(section);
-        });
+                <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
+                <div folder="student-works" class="gallery"></div>
+                <h3 style="margin-top: 3rem;">ONLINEUNTERRICHTE</h3>
+                <div folder="online-lessons" class="gallery"></div>
+        </section>
 
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        <!-- Контакты -->
+        <section id="contact">
+            <div class="container">
+                <h2>KONTAKT</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>shanginaes@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📷</div>
+                        <div>@Katjashangina</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        toggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        <!-- Футер -->
+        <footer>
+            <div class="container">
+                <p>© 2024 Ekaterina Shangina. Alle Rechte vorbehalten.</p>
+            </div>
+        </footer>
 
-        // Close mobile menu on menu item click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-
-        // Hide/show nav on scroll direction
-        let lastScrollTop = 0;
-        const nav = document.querySelector('nav');
-
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                // Scrolling down
-                nav.classList.remove('show-on-scroll');
-                nav.classList.add('hide-on-scroll');
-            } else {
-                // Scrolling up
-                nav.classList.remove('hide-on-scroll');
-                nav.classList.add('show-on-scroll');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-        }, false);
-
-        // Initialize nav as visible
-        nav.classList.add('show-on-scroll');
-
-        // Lightbox functionality
-        let currentGallery = [];
-        let currentIndex = 0;
-
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = lightbox.querySelector(".lightbox-img");
-        const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
-        const closeBtn = lightbox.querySelector(".close");
-        const prevBtn = lightbox.querySelector(".prev");
-        const nextBtn = lightbox.querySelector(".next");
-
-        function openLightbox(index, gallery) {
-            currentGallery = gallery;
-            currentIndex = index;
-            updateLightbox();
-            lightbox.style.display = "flex";
-            document.body.style.overflow = "hidden"; // Prevent scrolling when lightbox is open
-        }
-
-        function updateLightbox() {
-            const item = currentGallery[currentIndex];
-            lightboxImg.src = item.src;
-            captionDivLightbox.textContent = item.caption;
-        }
-
-        function closeLightbox() {
-            lightbox.style.display = "none";
-            document.body.style.overflow = ""; // Re-enable scrolling
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-            updateLightbox();
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % currentGallery.length;
-            updateLightbox();
-        }
-
-        closeBtn.addEventListener("click", closeLightbox);
-        prevBtn.addEventListener("click", prevImage);
-        nextBtn.addEventListener("click", nextImage);
-
-        // Close lightbox when clicking outside the image
-        lightbox.addEventListener("click", e => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        // Arrow keys
-        document.addEventListener("keydown", e => {
-            if (lightbox.style.display !== "flex") return;
-            if (e.key === "ArrowLeft") prevImage();
-            if (e.key === "ArrowRight") nextImage();
-            if (e.key === "Escape") closeLightbox();
-        });
-
-        // Setup lightbox for galleries
-        function setupLightboxForGalleries() {
-            const galleries = document.querySelectorAll(".gallery");
-            galleries.forEach(galleryDiv => {
-                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
-                const galleryData = items.map(item => {
-                    const img = item.querySelector("img");
-                    const captionDiv = item.querySelector(".gallery-caption h3");
-                    const descriptionDiv = item.querySelector(".gallery-caption p");
-                    return {
-                        src: img.src,
-                        caption: captionDiv ? `${captionDiv.textContent.replace(/"/g,'')}${descriptionDiv ? ' - ' + descriptionDiv.textContent : ''}` : ""
-                    };
-                });
-
-                items.forEach((item, index) => {
-                    const captionDiv = item.querySelector(".gallery-caption");
-                    if (captionDiv) {
-                        captionDiv.style.cursor = "pointer";
-                        captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
-                    }
+        <script>
+            // Плавная прокрутка для навигации
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Also make the image clickable
-                    const img = item.querySelector("img");
-                    if (img) {
-                        img.style.cursor = "pointer";
-                        img.addEventListener("click", () => openLightbox(index, galleryData));
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Анимация появления элементов при прокрутке
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за секциями
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu on menu item click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
                     }
                 });
             });
-        }
 
-        // Initialize lightbox functionality when DOM is loaded
-        document.addEventListener("DOMContentLoaded", () => {
-            setupLightboxForGalleries();
-        });
-    </script>
-</body>
-</html>
+            // Hide/show nav on scroll direction
+            let lastScrollTop = 0;
+            const nav = document.querySelector('nav');
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    // Scrolling down
+                    nav.classList.remove('show-on-scroll');
+                    nav.classList.add('hide-on-scroll');
+                } else {
+                    // Scrolling up
+                    nav.classList.remove('hide-on-scroll');
+                    nav.classList.add('show-on-scroll');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            }, false);
+
+            // Initialize nav as visible
+            nav.classList.add('show-on-scroll');
+
+            function shuffleArray(array) {
+                return array
+                    .map(value => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value);
+            }
+
+            // Lightbox functionality
+            let currentGallery = [];
+            let currentIndex = 0;
+
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = lightbox.querySelector(".lightbox-img");
+            const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
+            const closeBtn = lightbox.querySelector(".close");
+            const prevBtn = lightbox.querySelector(".prev");
+            const nextBtn = lightbox.querySelector(".next");
+
+            function openLightbox(index, gallery) {
+                currentGallery = gallery;
+                currentIndex = index;
+                updateLightbox();
+                lightbox.style.display = "flex";
+                document.body.style.overflow = "hidden"; // Prevent scrolling when lightbox is open
+            }
+
+            function updateLightbox() {
+                const item = currentGallery[currentIndex];
+                lightboxImg.src = item.src;
+                captionDivLightbox.textContent = item.caption;
+            }
+
+            function closeLightbox() {
+                lightbox.style.display = "none";
+                document.body.style.overflow = ""; // Re-enable scrolling
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                updateLightbox();
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % currentGallery.length;
+                updateLightbox();
+            }
+
+            closeBtn.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", prevImage);
+            nextBtn.addEventListener("click", nextImage);
+
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener("click", e => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // Arrow keys
+            document.addEventListener("keydown", e => {
+                if (lightbox.style.display !== "flex") return;
+                if (e.key === "ArrowLeft") prevImage();
+                if (e.key === "ArrowRight") nextImage();
+                if (e.key === "Escape") closeLightbox();
+            });
+
+            // Setup lightbox for galleries after they are loaded
+            function setupLightboxForGalleries() {
+                const galleries = document.querySelectorAll(".gallery");
+                galleries.forEach(galleryDiv => {
+                    const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
+                    const galleryData = items.map(item => {
+                        const img = item.querySelector("img");
+                        const captionDiv = item.querySelector(".gallery-caption h3");
+                        return {
+                            src: img.src,
+                            caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
+                        };
+                    });
+
+                    items.forEach((item, index) => {
+                        const captionDiv = item.querySelector(".gallery-caption");
+                        if (captionDiv) {
+                            captionDiv.style.cursor = "pointer";
+                            captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
+                        }
+                    });
+                });
+            }
+
+            async function loadGalleries() {
+                const galleries = document.querySelectorAll(".gallery[folder]");
+
+                for (const gallery of galleries) {
+                    const folder = gallery.getAttribute("folder");
+                    const jsonPath = `/images/${folder}/index.json`;
+
+                    try {
+                        const response = await fetch(jsonPath);
+                        if (!response.ok) throw new Error(`Failed to load ${jsonPath}`);
+                        let files = await response.json();
+
+                        // Shuffle images
+                        files = shuffleArray(files);
+
+                        // Add all items
+                        files.forEach(file => {
+                            const name = file.replace(/\.[^/.]+$/, "");
+                            let [caption, description] = name.split(" - ");
+                            caption = caption || "Untitled";
+                            description = description || "";
+
+                            const item = document.createElement("div");
+                            item.className = "gallery-item";
+
+                            item.innerHTML = `
+                                <img src="/images/${folder}/${file}" alt="${caption}">
+                                <div class="gallery-caption">
+                                    <h3>"${caption}"</h3>
+                                    <p>${description}</p>
+                                </div>
+                            `;
+
+                            gallery.appendChild(item);
+                        });
+
+                        // Limit visible to 5 (rest scrollable)
+                        const items = gallery.querySelectorAll(".gallery-item");
+                        let visibleCount = 5;
+
+                        if (items.length > visibleCount) {
+                            items.forEach((item, idx) => {
+                                if (idx >= visibleCount) item.style.display = "none";
+                            });
+
+                            // Fancy "Show more" card
+                            const showMore = document.createElement("div");
+                            showMore.className = "show-more-btn";
+                            showMore.textContent = "+ Show more";
+
+                            showMore.onclick = () => {
+                                // Reveal the next 5 items
+                                const nextCount = visibleCount + 5;
+                                items.forEach((item, idx) => {
+                                    if (idx < nextCount) item.style.display = "flex";
+                                });
+                                visibleCount = nextCount;
+
+                                // Remove button if all are shown
+                                if (visibleCount >= items.length) {
+                                    showMore.remove();
+                                }
+                            };
+
+                            gallery.appendChild(showMore);
+                        }
+
+                    } catch (err) {
+                        console.error(err);
+                        gallery.innerHTML = `<p>Failed to load gallery: ${folder}</p>`;
+                    }
+                }
+                
+                // Setup lightbox after galleries are loaded
+                setupLightboxForGalleries();
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                loadGalleries();
+            });
+        </script>
+    </body>
+    </html>
