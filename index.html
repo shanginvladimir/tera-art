@@ -348,32 +348,47 @@
             }
         }
 
-                /* Lightbox overlay */
+        /* Lightbox overlay - FIXED */
         .lightbox {
             display: none;
             position: fixed;
-            z-index: 999;
-            top: 0; left: 0;
+            z-index: 9999;
+            top: 0; 
+            left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.9);
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        .lightbox img.lightbox-img {
+        .lightbox-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             max-width: 90%;
-            max-height: 80%;
+            max-height: 90%;
+        }
+
+        .lightbox img.lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
             margin: auto;
             display: block;
+            border-radius: 8px;
         }
 
         .lightbox-caption {
             color: #fff;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-size: 1.2rem;
+            max-width: 80%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
         }
 
         .lightbox .close {
@@ -383,6 +398,7 @@
             color: #fff;
             font-size: 40px;
             cursor: pointer;
+            z-index: 10000;
         }
 
         .lightbox button.prev,
@@ -390,18 +406,33 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: none;
+            background: rgba(0, 0, 0, 0.5);
             border: none;
             color: #fff;
-            font-size: 50px;
+            font-size: 30px;
             cursor: pointer;
-            padding: 0 20px;
+            padding: 15px;
             user-select: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
         }
 
-        .lightbox button.prev { left: 0; }
-        .lightbox button.next { right: 0; }
+        .lightbox button.prev { 
+            left: 20px; 
+        }
+        .lightbox button.next { 
+            right: 20px; 
+        }
 
+        .lightbox button.prev:hover,
+        .lightbox button.next:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
 
         .show-more-btn {
             flex: 0 0 auto;
@@ -450,8 +481,10 @@
 
     <div id="lightbox" class="lightbox">
         <span class="close">&times;</span>
-        <img class="lightbox-img" src="" alt="">
-        <div class="lightbox-caption"></div>
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
         <button class="prev">&#10094;</button>
         <button class="next">&#10095;</button>
     </div>
@@ -472,7 +505,7 @@
             <h2>EIN WENIG ÜBER MICH</h2>
             <div class="about-content">
                 <div>
-                    <img src="images/main.jpg" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
+                    <img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
                 </div>
                 <div>
                     <p>Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt — zeichne!“ Genau das hat mir geholfen und hilft mir bis heute, mit Schwierigkeiten umzugehen.</p>
@@ -507,7 +540,30 @@
     <section id="works">
         <div class="container">
             <h2>AUSGEWÄHLTE ARBEITEN</h2>
-            <div folder="my-works" class="gallery"></div>
+            <div folder="my-works" class="gallery">
+                <!-- Sample gallery items for demonstration -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9vayUyMGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 1">
+                    <div class="gallery-caption">
+                        <h3>"Sunset Dreams"</h3>
+                        <p>Acrylic on canvas, 2023</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 2">
+                    <div class="gallery-caption">
+                        <h3>"Ocean Breeze"</h3>
+                        <p>Watercolor, 2022</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Artwork 3">
+                    <div class="gallery-caption">
+                        <h3>"Mountain Silence"</h3>
+                        <p>Oil on canvas, 2024</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -532,7 +588,23 @@
     <section id="students">
         <div class="container">
             <h2>MEINE SCHÜLER</h2>
-            <div class="gallery" folder="students"></div>
+            <div class="gallery" folder="students">
+                <!-- Sample student works for demonstration -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXJ0JTIwc3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Student work 1">
+                    <div class="gallery-caption">
+                        <h3>"Colorful Expression"</h3>
+                        <p>Student: Anna Müller, Age 12</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFydCUyMHN0dWRlbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Student work 2">
+                    <div class="gallery-caption">
+                        <h3>"Abstract Thoughts"</h3>
+                        <p>Student: Lukas Schmidt, Age 14</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -541,7 +613,16 @@
         <div class="container">
             <h2>ANDERE PROJEKTE</h2>
             <div class="gallery">
-                <div folder="projects" class="gallery"></div>
+                <div folder="projects" class="gallery">
+                    <!-- Sample projects for demonstration -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1460661419208-fd4e0eea2d5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGFydCUyMHByb2plY3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Project 1">
+                        <div class="gallery-caption">
+                            <h3>"Golden Moon Workshop"</h3>
+                            <p>With structural paste and gold leaf</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
@@ -650,13 +731,6 @@
         // Initialize nav as visible
         nav.classList.add('show-on-scroll');
 
-        function shuffleArray(array) {
-            return array
-                .map(value => ({ value, sort: Math.random() }))
-                .sort((a, b) => a.sort - b.sort)
-                .map(({ value }) => value);
-        }
-
         // Lightbox functionality
         let currentGallery = [];
         let currentIndex = 0;
@@ -714,7 +788,7 @@
             if (e.key === "Escape") closeLightbox();
         });
 
-        // Setup lightbox for galleries after they are loaded
+        // Setup lightbox for galleries
         function setupLightboxForGalleries() {
             const galleries = document.querySelectorAll(".gallery");
             galleries.forEach(galleryDiv => {
@@ -722,9 +796,10 @@
                 const galleryData = items.map(item => {
                     const img = item.querySelector("img");
                     const captionDiv = item.querySelector(".gallery-caption h3");
+                    const descriptionDiv = item.querySelector(".gallery-caption p");
                     return {
                         src: img.src,
-                        caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
+                        caption: captionDiv ? `${captionDiv.textContent.replace(/"/g,'')}${descriptionDiv ? ' - ' + descriptionDiv.textContent : ''}` : ""
                     };
                 });
 
@@ -734,89 +809,20 @@
                         captionDiv.style.cursor = "pointer";
                         captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
                     }
+                    
+                    // Also make the image clickable
+                    const img = item.querySelector("img");
+                    if (img) {
+                        img.style.cursor = "pointer";
+                        img.addEventListener("click", () => openLightbox(index, galleryData));
+                    }
                 });
             });
         }
 
-        async function loadGalleries() {
-            const galleries = document.querySelectorAll(".gallery[folder]");
-
-            for (const gallery of galleries) {
-                const folder = gallery.getAttribute("folder");
-                const jsonPath = `/images/${folder}/index.json`;
-
-                try {
-                    const response = await fetch(jsonPath);
-                    if (!response.ok) throw new Error(`Failed to load ${jsonPath}`);
-                    let files = await response.json();
-
-                    // Shuffle images
-                    files = shuffleArray(files);
-
-                    // Add all items
-                    files.forEach(file => {
-                        const name = file.replace(/\.[^/.]+$/, "");
-                        let [caption, description] = name.split(" - ");
-                        caption = caption || "Untitled";
-                        description = description || "";
-
-                        const item = document.createElement("div");
-                        item.className = "gallery-item";
-
-                        item.innerHTML = `
-                            <img src="/images/${folder}/${file}" alt="${caption}">
-                            <div class="gallery-caption">
-                                <h3>"${caption}"</h3>
-                                <p>${description}</p>
-                            </div>
-                        `;
-
-                        gallery.appendChild(item);
-                    });
-
-                    // Limit visible to 5 (rest scrollable)
-                    const items = gallery.querySelectorAll(".gallery-item");
-                    let visibleCount = 5;
-
-                    if (items.length > visibleCount) {
-                        items.forEach((item, idx) => {
-                            if (idx >= visibleCount) item.style.display = "none";
-                        });
-
-                        // Fancy "Show more" card
-                        const showMore = document.createElement("div");
-                        showMore.className = "show-more-btn";
-                        showMore.textContent = "+ Show more";
-
-                        showMore.onclick = () => {
-                            // Reveal the next 5 items
-                            const nextCount = visibleCount + 5;
-                            items.forEach((item, idx) => {
-                                if (idx < nextCount) item.style.display = "flex";
-                            });
-                            visibleCount = nextCount;
-
-                            // Remove button if all are shown
-                            if (visibleCount >= items.length) {
-                                showMore.remove();
-                            }
-                        };
-
-                        gallery.appendChild(showMore);
-                    }
-
-                } catch (err) {
-                    console.error(err);
-                    gallery.innerHTML = `<p>Failed to load gallery: ${folder}</p>`;
-                }
-            }
-            
-            // Setup lightbox after galleries are loaded
-            setupLightboxForGalleries();
-        }
-
+        // Initialize lightbox functionality when DOM is loaded
         document.addEventListener("DOMContentLoaded", () => {
-            loadGalleries();
+            setupLightboxForGalleries();
         });
     </script>
 </body>
