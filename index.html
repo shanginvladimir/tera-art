@@ -711,9 +711,11 @@
 
                     // Limit visible to 5 (rest scrollable)
                     const items = gallery.querySelectorAll(".gallery-item");
-                    if (items.length > 5) {
+                    let visibleCount = 5;
+
+                    if (items.length > visibleCount) {
                         items.forEach((item, idx) => {
-                            if (idx >= 5) item.style.display = "none"; // hide extra
+                            if (idx >= visibleCount) item.style.display = "none";
                         });
 
                         // Fancy "Show more" card
@@ -722,8 +724,17 @@
                         showMore.textContent = "+ Show more";
 
                         showMore.onclick = () => {
-                            items.forEach(item => (item.style.display = "flex"));
-                            showMore.remove();
+                            // Reveal the next 5 items
+                            const nextCount = visibleCount + 5;
+                            items.forEach((item, idx) => {
+                                if (idx < nextCount) item.style.display = "flex";
+                            });
+                            visibleCount = nextCount;
+
+                            // Remove button if all are shown
+                            if (visibleCount >= items.length) {
+                                showMore.remove();
+                            }
                         };
 
                         gallery.appendChild(showMore);
