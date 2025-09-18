@@ -1,0 +1,74 @@
+name: Generate Gallery Index
+
+on:
+  push:
+    paths:
+      - "images/**"
+      - ".github/workflows/generate-gallery.yml"
+  workflow_dispatch: # allow manual run
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate JSON indexes
+        run: |
+          node <<'EOF'
+          import fs from "fs";
+          import path from "path";
+
+          const rootDir = "images";
+
+          function walk(dir) {
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+            const files = [];
+            for (const entry of entries) {
+              const fullPath = path.join(dir, entry.name);
+              if (entry.isDirectory()) {
+                files.push(...walk(fullPath));
+              } else {
+                files.push(fullPath);
+              }
+            }
+            return files;
+          }
+
+          function generateIndexes() {
+            const allFiles = walk(rootDir);
+
+            // Group by folder
+            const folders = {};
+            for (const file of allFiles) {
+              if (!/\.(jpe?g|png|gif|webp)$/i.test(file)) continue;
+              const dir = path.dirname(file);
+              if (!folders[dir]) folders[dir] = [];
+              folders[dir].push(path.basename(file));
+            }
+
+            // Write index.json in each folder
+            for (const [dir, files] of Object.entries(folders)) {
+              const outPath = path.join(dir, "index.json");
+              fs.writeFileSync(outPath, JSON.stringify(files, null, 2));
+              console.log(`✔ Wrote ${outPath}`);
+            }
+          }
+
+          generateIndexes();
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/**/index.json
+          git diff --cached --quiet || git commit -m "Update gallery index.json"
+          git push
