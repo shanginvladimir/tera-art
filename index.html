@@ -213,6 +213,7 @@
             color: var(--primary-white);
             transform: translateY(100%);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .gallery-caption > p {
@@ -239,7 +240,7 @@
         .students-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1.5rem;  /* расстояние между картинками */
+            gap: 1.5rem;  /* расстояние между картинки */
             justify-items: center; /* центрируем картинки в ячейке */
         }
 
@@ -531,7 +532,7 @@
     <section id="students">
         <div class="container">
             <h2>MEINE SCHÜLER</h2>
-            <div class="gallery" folder="students"/>
+            <div class="gallery" folder="students"></div>
         </div>
     </section>
 
@@ -541,23 +542,6 @@
             <h2>ANDERE PROJEKTE</h2>
             <div class="gallery">
                 <div folder="projects" class="gallery"></div>
-                <!-- <div class="project-item">
-                    <h3>Workshop „Goldener Mond“</h3>
-                    <p>mit struktureller Paste und Blattgold.</p>
-                </div>
-                <div class="project-item">
-                    <h3>Oster-Ausstellung von Kinderarbeiten</h3>
-                    <p>in der russischen Kirche in Deutschland, 2024.</p>
-                </div>
-                <div class="project-item">
-                    <h3>Workshop „Leckerer Sketching“</h3>
-                </div>
-                <div class="project-item">
-                    <h3>Organisation des internationalen Wettbewerbs 2022–2024 „Tu Gutes“</h3>
-                </div>
-                <div class="project-item">
-                    <h3>Skizzieren im Museum „Naturkunst“, Leipzig 2024</h3>
-                </div> -->
             </div>
             
             <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
@@ -673,6 +657,87 @@
                 .map(({ value }) => value);
         }
 
+        // Lightbox functionality
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = lightbox.querySelector(".lightbox-img");
+        const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
+        const closeBtn = lightbox.querySelector(".close");
+        const prevBtn = lightbox.querySelector(".prev");
+        const nextBtn = lightbox.querySelector(".next");
+
+        function openLightbox(index, gallery) {
+            currentGallery = gallery;
+            currentIndex = index;
+            updateLightbox();
+            lightbox.style.display = "flex";
+            document.body.style.overflow = "hidden"; // Prevent scrolling when lightbox is open
+        }
+
+        function updateLightbox() {
+            const item = currentGallery[currentIndex];
+            lightboxImg.src = item.src;
+            captionDivLightbox.textContent = item.caption;
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+            document.body.style.overflow = ""; // Re-enable scrolling
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            updateLightbox();
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            updateLightbox();
+        }
+
+        closeBtn.addEventListener("click", closeLightbox);
+        prevBtn.addEventListener("click", prevImage);
+        nextBtn.addEventListener("click", nextImage);
+
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener("click", e => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Arrow keys
+        document.addEventListener("keydown", e => {
+            if (lightbox.style.display !== "flex") return;
+            if (e.key === "ArrowLeft") prevImage();
+            if (e.key === "ArrowRight") nextImage();
+            if (e.key === "Escape") closeLightbox();
+        });
+
+        // Setup lightbox for galleries after they are loaded
+        function setupLightboxForGalleries() {
+            const galleries = document.querySelectorAll(".gallery");
+            galleries.forEach(galleryDiv => {
+                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
+                const galleryData = items.map(item => {
+                    const img = item.querySelector("img");
+                    const captionDiv = item.querySelector(".gallery-caption h3");
+                    return {
+                        src: img.src,
+                        caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
+                    };
+                });
+
+                items.forEach((item, index) => {
+                    const captionDiv = item.querySelector(".gallery-caption");
+                    if (captionDiv) {
+                        captionDiv.style.cursor = "pointer";
+                        captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
+                    }
+                });
+            });
+        }
+
         async function loadGalleries() {
             const galleries = document.querySelectorAll(".gallery[folder]");
 
@@ -745,89 +810,14 @@
                     gallery.innerHTML = `<p>Failed to load gallery: ${folder}</p>`;
                 }
             }
+            
+            // Setup lightbox after galleries are loaded
+            setupLightboxForGalleries();
         }
-
-
 
         document.addEventListener("DOMContentLoaded", () => {
             loadGalleries();
-            let currentGallery = [];
-            let currentIndex = 0;
-
-            const lightbox = document.getElementById("lightbox");
-            const lightboxImg = lightbox.querySelector(".lightbox-img");
-            const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
-            const closeBtn = lightbox.querySelector(".close");
-            const prevBtn = lightbox.querySelector(".prev");
-            const nextBtn = lightbox.querySelector(".next");
-
-            function openLightbox(index, gallery) {
-                currentGallery = gallery;
-                currentIndex = index;
-                updateLightbox();
-                lightbox.style.display = "flex";
-            }
-
-            function updateLightbox() {
-                const item = currentGallery[currentIndex];
-                lightboxImg.src = item.src;
-                captionDivLightbox.textContent = item.caption;
-            }
-
-            function closeLightbox() {
-                lightbox.style.display = "none";
-            }
-
-            function prevImage() {
-                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-                updateLightbox();
-            }
-
-            function nextImage() {
-                currentIndex = (currentIndex + 1) % currentGallery.length;
-                updateLightbox();
-            }
-
-            closeBtn.addEventListener("click", closeLightbox);
-            prevBtn.addEventListener("click", prevImage);
-            nextBtn.addEventListener("click", nextImage);
-
-            // Make gallery captions clickable instead of images
-            const galleries = document.querySelectorAll(".gallery");
-            galleries.forEach(galleryDiv => {
-                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
-                const galleryData = items.map(item => {
-                    const img = item.querySelector("img");
-                    const captionDiv = item.querySelector(".gallery-caption h3");
-                    return {
-                        src: img.src,
-                        caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
-                    };
-                });
-
-                items.forEach((item, index) => {
-                    const captionDiv = item.querySelector(".gallery-caption");
-                    if (captionDiv) {
-                        captionDiv.style.cursor = "pointer";
-                        captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
-                    }
-                });
-            });
-
-            // Close lightbox when clicking outside the image
-            lightbox.addEventListener("click", e => {
-                if (e.target === lightbox) closeLightbox();
-            });
-
-            // Arrow keys
-            document.addEventListener("keydown", e => {
-                if (lightbox.style.display !== "flex") return;
-                if (e.key === "ArrowLeft") prevImage();
-                if (e.key === "ArrowRight") nextImage();
-                if (e.key === "Escape") closeLightbox();
-            });
         });
-
     </script>
 </body>
 </html>
