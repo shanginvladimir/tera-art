@@ -165,22 +165,18 @@
         }
         
         .gallery {
-            display: grid;
-            grid-auto-flow: column;                  /* Force horizontal flow */
-            grid-auto-columns: minmax(220px, 1fr);   /* Responsive item width */
-            gap: 2rem;
-            overflow-x: auto;                        /* Enable horizontal scroll */
-            padding: 1rem 0;
-            scroll-snap-type: x mandatory;           /* (optional) snapping when scrolling */
-        }
-
-        .gallery-item {
-            scroll-snap-align: start;                /* (optional) snap to each item */
-            aspect-ratio: 1 / 1;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         
+        .gallery-item {
+            width: 200px;
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
         /* Общий стиль для всех картинок */
         img {
             max-width: 100%;
