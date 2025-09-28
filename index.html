@@ -552,9 +552,7 @@
         <section id="projects" style="background-color: #F5F5F5;">
             <div class="container">
                 <h2>ANDERE PROJEKTE</h2>
-                <div class="gallery">
-                    <div folder="projects" class="gallery"></div>
-                </div>
+                <div folder="projects" show-caption class="gallery"></div>
                 
                 <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
                 <div folder="student-works" class="gallery"></div>
@@ -755,6 +753,7 @@
 
                 for (const gallery of galleries) {
                     const folder = gallery.getAttribute("folder");
+                    const showCaption = gallery.hasAttribute("show-caption"); // <-- check attribute
                     const jsonPath = `/images/${folder}/index.json`;
 
                     try {
@@ -775,13 +774,22 @@
                             const item = document.createElement("div");
                             item.className = "gallery-item";
 
+                            // Conditionally add caption
                             item.innerHTML = `
                                 <img src="/images/${folder}/${file}" alt="${caption}">
+                                ${showCaption ? `
                                 <div class="gallery-caption">
-                                    <h3>"${caption}"</h3>
+                                    <h3>${caption}</h3>
                                     <p>${description}</p>
-                                </div>
+                                </div>` : ""}
                             `;
+
+                            // If caption is not shown, clicking opens flyout/lightbox
+                            if (!showCaption) {
+                                item.querySelector("img").addEventListener("click", () => {
+                                    openLightbox(folder, file, caption, description);
+                                });
+                            }
 
                             gallery.appendChild(item);
                         });
@@ -801,14 +809,12 @@
                             showMore.textContent = "+ Show more";
 
                             showMore.onclick = () => {
-                                // Reveal the next 5 items
                                 const nextCount = visibleCount + 5;
                                 items.forEach((item, idx) => {
                                     if (idx < nextCount) item.style.display = "flex";
                                 });
                                 visibleCount = nextCount;
 
-                                // Remove button if all are shown
                                 if (visibleCount >= items.length) {
                                     showMore.remove();
                                 }
@@ -825,6 +831,12 @@
                 
                 // Setup lightbox after galleries are loaded
                 setupLightboxForGalleries();
+            }
+
+            // Placeholder for your flyout/lightbox function
+            function openLightbox(folder, file, caption, description) {
+                console.log("Open lightbox:", folder, file, caption, description);
+                // Implement your flyout logic here
             }
 
             document.addEventListener("DOMContentLoaded", () => {
