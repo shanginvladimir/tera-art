@@ -140,6 +140,10 @@
                 opacity: 0.8;
             }
             
+            .hidden-gallery-item {
+                display: none !important;
+            }
+
             /* Обо мне */
             .about-content {
                 display: grid;
@@ -819,9 +823,9 @@
             }
 
             async function loadGalleries() {
-                const galleries = document.querySelectorAll(".gallery[folder]");
+                    const galleries = document.querySelectorAll(".gallery[folder]");
 
-                for (const gallery of galleries) {
+                    for (const gallery of galleries) {
                     const folder = gallery.getAttribute("folder");
                     const showCaption = gallery.hasAttribute("show-caption");
                     const jsonPath = `/images/${folder}/index.json`;
@@ -872,20 +876,20 @@
 
                         if (items.length > visibleCount) {
                             items.forEach((item, idx) => {
-                                if (idx >= visibleCount) item.style.display = "none";
+                                if (idx >= visibleCount) {
+                                    item.classList.add('hidden-gallery-item'); // ← Используем класс
+                                }
                             });
 
-                            // "Show more" button
                             const showMore = document.createElement("button");
                             showMore.className = "show-more-btn";
                             showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
-                            showMore.setAttribute('aria-label', `Show ${items.length - visibleCount} more images`);
 
                             showMore.onclick = () => {
                                 const nextCount = Math.min(visibleCount + 5, items.length);
                                 
                                 for (let i = visibleCount; i < nextCount; i++) {
-                                    items[i].style.display = "flex";
+                                    items[i].classList.remove('hidden-gallery-item'); // ← Убираем класс
                                 }
                                 
                                 visibleCount = nextCount;
