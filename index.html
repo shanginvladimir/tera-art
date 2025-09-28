@@ -588,24 +588,31 @@
             // Плавная прокрутка для навигации
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
                     const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
                     
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
+                    // Проверяем, является ли ссылка якорем на странице
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            const offsetTop = targetElement.offsetTop - 80; // Учет фиксированного навбара
+                            
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
                 });
             });
-            
+
             // Анимация появления элементов при прокрутке
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -614,7 +621,7 @@
                     }
                 });
             }, observerOptions);
-            
+
             // Наблюдаем за секциями
             document.querySelectorAll('section').forEach(section => {
                 section.style.opacity = 0;
@@ -623,48 +630,73 @@
                 observer.observe(section);
             });
 
+            // Мобильное меню
             const toggle = document.querySelector('.mobile-menu-toggle');
             const navLinks = document.querySelector('.nav-links');
 
-            toggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-
-            // Close mobile menu on menu item click
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
-                        navLinks.classList.remove('active');
-                    }
+            if (toggle && navLinks) {
+                toggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    toggle.setAttribute('aria-expanded', 
+                        navLinks.classList.contains('active').toString()
+                    );
                 });
-            });
+
+                // Close mobile menu on menu item click
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            navLinks.classList.remove('active');
+                            toggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                });
+            }
 
             // Hide/show nav on scroll direction
             let lastScrollTop = 0;
             const nav = document.querySelector('nav');
+            let scrollTimeout;
 
-            window.addEventListener('scroll', function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (scrollTop > lastScrollTop) {
-                    // Scrolling down
-                    nav.classList.remove('show-on-scroll');
-                    nav.classList.add('hide-on-scroll');
-                } else {
-                    // Scrolling up
-                    nav.classList.remove('hide-on-scroll');
-                    nav.classList.add('show-on-scroll');
-                }
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-            }, false);
+            if (nav) {
+                window.addEventListener('scroll', function() {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Очищаем предыдущий таймаут
+                    clearTimeout(scrollTimeout);
+                    
+                    // Показываем навбар при скролле вверх
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        // Scrolling down
+                        nav.classList.remove('show-on-scroll');
+                        nav.classList.add('hide-on-scroll');
+                    } else {
+                        // Scrolling up
+                        nav.classList.remove('hide-on-scroll');
+                        nav.classList.add('show-on-scroll');
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    
+                    // Автоматически скрываем навбар после прекращения скролла
+                    scrollTimeout = setTimeout(() => {
+                        nav.classList.remove('show-on-scroll');
+                        nav.classList.add('hide-on-scroll');
+                    }, 2000);
+                }, false);
 
-            // Initialize nav as visible
-            nav.classList.add('show-on-scroll');
+                // Initialize nav as visible
+                nav.classList.add('show-on-scroll');
+            }
 
+            // Утилиты
             function shuffleArray(array) {
-                return array
-                    .map(value => ({ value, sort: Math.random() }))
-                    .sort((a, b) => a.sort - b.sort)
-                    .map(({ value }) => value);
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
             }
 
             // Lightbox functionality
@@ -672,77 +704,115 @@
             let currentIndex = 0;
 
             const lightbox = document.getElementById("lightbox");
-            const lightboxImg = lightbox.querySelector(".lightbox-img");
-            const captionDivLightbox = lightbox.querySelector(".lightbox-caption");
-            const closeBtn = lightbox.querySelector(".close");
-            const prevBtn = lightbox.querySelector(".prev");
-            const nextBtn = lightbox.querySelector(".next");
+            const lightboxImg = lightbox?.querySelector(".lightbox-img");
+            const captionDivLightbox = lightbox?.querySelector(".lightbox-caption");
+            const closeBtn = lightbox?.querySelector(".close");
+            const prevBtn = lightbox?.querySelector(".prev");
+            const nextBtn = lightbox?.querySelector(".next");
 
-            function openLightbox(index, gallery) {
-                currentGallery = gallery;
-                currentIndex = index;
-                updateLightbox();
-                lightbox.style.display = "flex";
-                document.body.style.overflow = "hidden"; // Prevent scrolling when lightbox is open
+            if (lightbox && lightboxImg && closeBtn && prevBtn && nextBtn) {
+                function openLightbox(index, gallery) {
+                    currentGallery = gallery;
+                    currentIndex = index;
+                    updateLightbox();
+                    lightbox.style.display = "flex";
+                    lightbox.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = "hidden";
+                    
+                    // Фокус для accessibility
+                    closeBtn.focus();
+                }
+
+                function updateLightbox() {
+                    if (currentGallery[currentIndex]) {
+                        const item = currentGallery[currentIndex];
+                        lightboxImg.src = item.src;
+                        lightboxImg.alt = item.caption || 'Gallery image';
+                        if (captionDivLightbox) {
+                            captionDivLightbox.textContent = item.caption;
+                        }
+                    }
+                }
+
+                function closeLightbox() {
+                    lightbox.style.display = "none";
+                    lightbox.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = "";
+                }
+
+                function prevImage() {
+                    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                    updateLightbox();
+                }
+
+                function nextImage() {
+                    currentIndex = (currentIndex + 1) % currentGallery.length;
+                    updateLightbox();
+                }
+
+                closeBtn.addEventListener("click", closeLightbox);
+                prevBtn.addEventListener("click", prevImage);
+                nextBtn.addEventListener("click", nextImage);
+
+                // Close lightbox when clicking outside the image
+                lightbox.addEventListener("click", e => {
+                    if (e.target === lightbox) closeLightbox();
+                });
+
+                // Arrow keys
+                document.addEventListener("keydown", e => {
+                    if (lightbox.style.display !== "flex") return;
+                    
+                    switch(e.key) {
+                        case "ArrowLeft":
+                            prevImage();
+                            break;
+                        case "ArrowRight":
+                            nextImage();
+                            break;
+                        case "Escape":
+                            closeLightbox();
+                            break;
+                    }
+                });
             }
-
-            function updateLightbox() {
-                const item = currentGallery[currentIndex];
-                lightboxImg.src = item.src;
-                captionDivLightbox.textContent = item.caption;
-            }
-
-            function closeLightbox() {
-                lightbox.style.display = "none";
-                document.body.style.overflow = ""; // Re-enable scrolling
-            }
-
-            function prevImage() {
-                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-                updateLightbox();
-            }
-
-            function nextImage() {
-                currentIndex = (currentIndex + 1) % currentGallery.length;
-                updateLightbox();
-            }
-
-            closeBtn.addEventListener("click", closeLightbox);
-            prevBtn.addEventListener("click", prevImage);
-            nextBtn.addEventListener("click", nextImage);
-
-            // Close lightbox when clicking outside the image
-            lightbox.addEventListener("click", e => {
-                if (e.target === lightbox) closeLightbox();
-            });
-
-            // Arrow keys
-            document.addEventListener("keydown", e => {
-                if (lightbox.style.display !== "flex") return;
-                if (e.key === "ArrowLeft") prevImage();
-                if (e.key === "ArrowRight") nextImage();
-                if (e.key === "Escape") closeLightbox();
-            });
 
             // Setup lightbox for galleries after they are loaded
             function setupLightboxForGalleries() {
                 const galleries = document.querySelectorAll(".gallery");
+                
                 galleries.forEach(galleryDiv => {
                     const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
                     const galleryData = items.map(item => {
                         const img = item.querySelector("img");
                         const captionDiv = item.querySelector(".gallery-caption h3");
                         return {
-                            src: img.src,
-                            caption: captionDiv ? captionDiv.textContent.replace(/"/g,'') : ""
+                            src: img?.src || '',
+                            caption: captionDiv ? captionDiv.textContent.replace(/"/g, '') : ""
                         };
-                    });
+                    }).filter(item => item.src); // Фильтруем элементы без src
 
                     items.forEach((item, index) => {
-                        const captionDiv = item.querySelector(".gallery-caption");
-                        if (captionDiv) {
-                            captionDiv.style.cursor = "pointer";
-                            captionDiv.addEventListener("click", () => openLightbox(index, galleryData));
+                        const clickableElement = item.querySelector(".gallery-caption") || item.querySelector("img");
+                        
+                        if (clickableElement) {
+                            clickableElement.style.cursor = "pointer";
+                            clickableElement.addEventListener("click", () => {
+                                if (lightbox) {
+                                    openLightbox(index, galleryData);
+                                }
+                            });
+                            
+                            // Добавляем keyboard accessibility
+                            clickableElement.setAttribute('tabindex', '0');
+                            clickableElement.addEventListener('keypress', (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    if (lightbox) {
+                                        openLightbox(index, galleryData);
+                                    }
+                                }
+                            });
                         }
                     });
                 });
@@ -753,19 +823,29 @@
 
                 for (const gallery of galleries) {
                     const folder = gallery.getAttribute("folder");
-                    const showCaption = gallery.hasAttribute("show-caption"); // <-- check attribute
+                    const showCaption = gallery.hasAttribute("show-caption");
                     const jsonPath = `/images/${folder}/index.json`;
 
                     try {
                         const response = await fetch(jsonPath);
-                        if (!response.ok) throw new Error(`Failed to load ${jsonPath}`);
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                         let files = await response.json();
+
+                        // Валидация данных
+                        if (!Array.isArray(files)) {
+                            throw new Error('Invalid JSON format: expected array');
+                        }
 
                         // Shuffle images
                         files = shuffleArray(files);
 
+                        // Очищаем галерею перед добавлением новых элементов
+                        gallery.innerHTML = '';
+
                         // Add all items
-                        files.forEach(file => {
+                        files.forEach((file, index) => {
+                            if (typeof file !== 'string') return; // Пропускаем некорректные данные
+                            
                             const name = file.replace(/\.[^/.]+$/, "");
                             let [caption, description] = name.split(" - ");
                             caption = caption || "Untitled";
@@ -774,22 +854,14 @@
                             const item = document.createElement("div");
                             item.className = "gallery-item";
 
-                            // Conditionally add caption
                             item.innerHTML = `
-                                <img src="/images/${folder}/${file}" alt="${caption}">
+                                <img src="/images/${folder}/${file}" alt="${caption}" loading="lazy">
                                 ${showCaption ? `
                                 <div class="gallery-caption">
                                     <h3>${caption}</h3>
                                     <p>${description}</p>
-                                </div>` : ""}
+                                </div>` : ''}
                             `;
-
-                            // If caption is not shown, clicking opens flyout/lightbox
-                            if (!showCaption) {
-                                item.querySelector("img").addEventListener("click", () => {
-                                    openLightbox(folder, file, caption, description);
-                                });
-                            }
 
                             gallery.appendChild(item);
                         });
@@ -803,20 +875,25 @@
                                 if (idx >= visibleCount) item.style.display = "none";
                             });
 
-                            // Fancy "Show more" card
-                            const showMore = document.createElement("div");
+                            // "Show more" button
+                            const showMore = document.createElement("button");
                             showMore.className = "show-more-btn";
-                            showMore.textContent = "+ Show more";
+                            showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
+                            showMore.setAttribute('aria-label', `Show ${items.length - visibleCount} more images`);
 
                             showMore.onclick = () => {
-                                const nextCount = visibleCount + 5;
-                                items.forEach((item, idx) => {
-                                    if (idx < nextCount) item.style.display = "flex";
-                                });
+                                const nextCount = Math.min(visibleCount + 5, items.length);
+                                
+                                for (let i = visibleCount; i < nextCount; i++) {
+                                    items[i].style.display = "flex";
+                                }
+                                
                                 visibleCount = nextCount;
 
                                 if (visibleCount >= items.length) {
                                     showMore.remove();
+                                } else {
+                                    showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
                                 }
                             };
 
@@ -824,8 +901,8 @@
                         }
 
                     } catch (err) {
-                        console.error(err);
-                        gallery.innerHTML = `<p>Failed to load gallery: ${folder}</p>`;
+                        console.error(`Error loading gallery ${folder}:`, err);
+                        gallery.innerHTML = `<p class="error-message">Failed to load gallery: ${folder}. ${err.message}</p>`;
                     }
                 }
                 
@@ -833,14 +910,26 @@
                 setupLightboxForGalleries();
             }
 
-            // Placeholder for your flyout/lightbox function
-            function openLightbox(folder, file, caption, description) {
-                console.log("Open lightbox:", folder, file, caption, description);
-                // Implement your flyout logic here
+            // Загрузка при полной загрузке DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadGalleries);
+            } else {
+                loadGalleries();
             }
 
-            document.addEventListener("DOMContentLoaded", () => {
-                loadGalleries();
+            // Оптимизация для производительности
+            let ticking = false;
+
+            function updateOnScroll() {
+                // Код, который должен выполняться при скролле
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateOnScroll);
+                    ticking = true;
+                }
             });
         </script>
     </body>
