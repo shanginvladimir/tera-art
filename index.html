@@ -456,7 +456,171 @@
                 border-color: #aaa;
             }
         </style>
+
+        <style>
+            /* Über mich */
+            #about .about-content {
+                display: grid;
+                grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+                gap: 3rem;
+                align-items: start;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+
+            #about .about-image {
+                width: 100%;
+            }
+
+            #about .about-image img {
+                display: block;
+                width: 100%;
+                max-width: 320px;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            #about .about-text {
+                min-width: 0;
+                text-align: left;
+            }
+
+            #about .about-text p {
+                line-height: 1.8;
+                margin-bottom: 1.2rem;
+            }
+
+            #about .about-intro {
+                font-size: 1.15rem;
+                font-weight: 500;
+            }
+
+            /* Collapsible text */
+            #about .about-extra {
+                display: none;
+            }
+
+            #about .about-extra.expanded {
+                display: block;
+            }
+
+            /* Toggle button */
+            #about .about-toggle {
+                display: inline-block;
+                margin-top: 0.5rem;
+                padding: 0.75rem 1.4rem;
+                background-color: transparent;
+                color: #333;
+                border: 1px solid #333;
+                border-radius: 6px;
+                cursor: pointer;
+                font: inherit;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            #about .about-toggle:hover {
+                background-color: #333;
+                color: white;
+            }
+
+            /* Tablet */
+            @media (max-width: 900px) {
+                #about .about-content {
+                    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+                    gap: 2rem;
+                }
+            }
+
+            /* Mobile */
+            @media (max-width: 650px) {
+                #about .about-content {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                #about .about-image img {
+                    max-width: 280px;
+                    margin: 0 auto;
+                }
+
+                #about .about-text {
+                    width: 100%;
+                }
+            }
+
+            /* About photo slideshow */
+            #about .about-slideshow {
+                position: relative;
+                width: 100%;
+                max-width: 320px;
+                aspect-ratio: 3 / 4;
+                overflow: hidden;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                margin-top: 1rem;
+            }
+
+            #about .about-slideshow .slide {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 1.8s ease-in-out;
+                display: block;
+            }
+
+            #about .about-slideshow .slide.active {
+                opacity: 1;
+            }
+
+            @media (max-width: 650px) {
+                #about .about-slideshow {
+                    max-width: 280px;
+                    margin: 0 auto;
+                }
+            }
+
+/* Unterricht */
+.ununterricht-section,
+.ununterricht-section {
+    background-color: #F5F5F5;
+}
+
+.ununterricht-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ununterricht-section h2 {
+    margin-bottom: 2.5rem;
+}
+
+.ununterricht-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.ununterricht-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ununterricht-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+        </style>
+  
     </head>
+
     <body>
         <!-- Навигация -->
         <nav>
@@ -466,7 +630,6 @@
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">Über mich</a></li>
-                    <li><a href="#experience">Erfahrung</a></li>
                     <li><a href="#works">Arbeiten</a></li>
                     <li><a href="#exhibitions">Ausstellungen</a></li>
                     <li><a href="#students">Schüler</a></li>
@@ -489,49 +652,71 @@
         <section id="home" class="hero">
             <div class="container hero-content">
                 <h1>PORTFOLIO</h1>
-                <p class="hero-subtitle">Künstlerin, Kunstlehrerin.</p>
+                <p class="hero-subtitle">Ekaterina Shangina<br>
+                    Freischaffende Künstlerin & Kunstlehrerin<br>
+                    Leipzig, Deutschland</p>
                 <h2>Ekaterina Shangina</h2>
             </div>
             <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
             <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
         </section>
 
-        <!-- Обо мне -->
-        <section id="about">
-            <div class="container">
-                <h2>EIN WENIG ÜBER MICH</h2>
-                <div class="about-content">
-                    <div>
-                        <img src="images/main.jpg" alt="Ekaterina Shangina" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2rem;">
-                    </div>
-                    <div>
-                        <p>Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt — zeichne!“ Genau das hat mir geholfen und hilft mir bis heute, mit Schwierigkeiten umzugehen.</p>
-                        <p>Ich habe eine kreative Ausbildung, wenn auch keine klassische Kunstausbildung. Wenn man aber zusammenzählt, wie viele verschiedene Kunstkurse ich besucht habe, wäre es wahrscheinlich falsch zu sagen, dass ich nichts gelernt habe.</p>
-                    </div>
-                    <div>
-                        <p>Außerdem verbessere ich kontinuierlich meine pädagogischen Fähigkeiten auf verschiedenen Kursen und Seminaren.</p>
-                        <p>Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig und an Wohltätigkeitsveranstaltungen teil; ein Großteil meiner Bilder befindet sich in Privatsammlungen. Ich male mit Acryl, Aquarell, Gouache und grafischen Materialien. Ich praktiziere Pleinair-Malen und Skizzieren nach der Natur.</p>
-                        <p>Meine Leidenschaft für die Arbeit mit jungen Menschen habe ich seit 2019 als ehrenamtliche Lehrerin beim Jugendverein IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit so viel Freude bereitete, entschloss ich mich 2024, meine künstlerische Expertise und meine pädagogische Begeisterung zum Beruf zu machen und mich als selbstständige Künstlerin und Kunstlehrerin zu registrieren. Seither unterrichte ich mit großer Freude eigene private Gruppen sowie Online-Kurse.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- Über mich -->
+<section id="about" style="background-color: #F5F5F5;">
+    <div class="container">
+        <h2>EIN WENIG ÜBER MICH</h2>
 
-        <!-- Опыт -->
-        <section id="experience" style="background-color: #F5F5F5;">
-            <div class="container">
-                <h2>ERFAHRUNG</h2>
-                <div class="experience-item">
-                    <h3>Kunstlehrerin im Jugendclub IUWENTUS</h3>
-                    <p class="experience-date">2021 – heute</p>
-                </div>
-                <div class="experience-item">
-                    <h3>Selbstständigkeit</h3>
-                    <p class="experience-date">2024 – heute</p>
-                    <p>Kunstlehrerin für Kinder ab 5 Jahren und Jugendliche. Organisatorin von Workshops und Außenseminaren. Online-Zeichenunterricht.</p>
+        <div class="about-content">
+            <div class="about-image">
+                <div class="about-slideshow">
+                    <img src="images/main2.jpeg" class="slide active" alt="Ekaterina Shangina">
+                    <img src="images/main3.jpeg" class="slide" alt="Ekaterina Shangina">
+                    <img src="images/main4.jpeg" class="slide" alt="Ekaterina Shangina">
+                    <img src="images/main5.jpeg" class="slide" alt="Ekaterina Shangina">
                 </div>
             </div>
-        </section>
+
+            <div class="about-text">
+                <p class="about-intro">
+                    Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt – zeichne!“
+                    Genau das hat mir geholfen und hilft mir bis heute,
+                    mit Schwierigkeiten umzugehen.
+                </p>
+
+                <div class="about-extra" id="aboutExtra">
+                    <p>
+                        Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig
+                        und an Wohltätigkeitsveranstaltungen teil; ein Großteil
+                        meiner Bilder befindet sich in Privatsammlungen.
+                        Ich male mit Öl, Acryl, Aquarell, Gouache und grafischen
+                        Materialien. Ich praktiziere Pleinair-Malen und Skizzieren
+                        nach der Natur.
+                    </p>
+
+                    <p>
+                        Meine Leidenschaft für die Arbeit mit jungen Menschen habe
+                        ich seit 2021 als ehrenamtliche Lehrerin beim Jugendverein
+                        IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit
+                        so viel Freude bereitete, entschloss ich mich 2024,
+                        meine künstlerische Expertise und meine pädagogische
+                        Begeisterung zum Beruf zu machen und mich als selbstständige
+                        Künstlerin und Kunstlehrerin zu registrieren.
+                        Seither unterrichte ich mit großer Freude eigene private
+                        Gruppen sowie Online-Kurse.
+                    </p>
+                </div>
+
+                <button class="about-toggle"
+                        id="aboutToggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="aboutExtra">
+                    Mehr über mich erfahren
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Работы -->
         <section id="works">
@@ -558,8 +743,52 @@
             </div>
         </section>
 
+        <!-- Unterricht -->
+        <section id="exhibitions" class="unterricht-section">
+            <div class="container">
+                <h2>Mein Unterricht</h2>
+
+                <div class="unterricht-content">
+                    <div class="unterricht-intro">
+                        <p>
+                            Meine Leidenschaft für die Arbeit mit jungen Menschen habe ich
+                            ab 2021 als ehrenamtliche Dozentin beim Jugendverein IUVENTUS
+                            entdeckt und vertieft. Da mir diese Tätigkeit so viel Freude
+                            bereitete, entschloss ich mich 2024, meine künstlerische
+                            Expertise und meine pädagogische Begeisterung zum Beruf zu
+                            machen und mich als freiberufliche Künstlerin und
+                            Kunstlehrerin selbstständig zu machen.
+                        </p>
+
+                        <p>
+                            Zudem bin ich Mitglied in einem Verband für kreatives
+                            Kinderschaffen. Seither unterrichte ich mit großer Freude
+                            eigene private Gruppen vor Ort sowie in Online-Kursen.
+                        </p>
+                    </div>
+
+                    <div class="unterricht-method">
+                        <p>
+                            In meinem Zeichenunterricht versuche ich, den Kindern die
+                            Themen so zu vermitteln, dass jedes Kind sein eigenes,
+                            individuelles Werk erschafft – ganz ohne starre
+                            Schritt-für-Schritt-Anleitungen, außer in den Momenten,
+                            in denen ich eine bestimmte Technik zeigen möchte.
+                        </p>
+
+                        <p>
+                            Außerdem organisiere ich Kunst-Exkursionen und Outdoor-Events:
+                            zum Beispiel Sketching-Treffen im Museum, im Botanischen
+                            Garten, beim Pleinair-Malen oder beim Zeichnen nach der
+                            Natur an den schönsten Orten unserer Stadt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Ученики -->
-        <section id="students">
+        <section id="students" style="background-color: #F5F5F5;">
             <div class="container">
                 <h2>MEINE SCHÜLER</h2>
                 <div class="gallery" folder="students"></div>
@@ -567,7 +796,7 @@
         </section>
 
         <!-- Проекты -->
-        <section id="projects" style="background-color: #F5F5F5;">
+        <section id="projects">
             <div class="container">
                 <h2>ANDERE PROJEKTE</h2>
                 <div folder="projects" show-caption class="gallery"></div>
@@ -579,7 +808,7 @@
         </section>
 
         <!-- Контакты -->
-        <section id="contact">
+        <section id="contact" style="background-color: #F5F5F5;">
             <div class="container">
                 <h2>KONTAKT</h2>
                 <div class="contact-info">
@@ -948,6 +1177,37 @@
                     requestAnimationFrame(updateOnScroll);
                     ticking = true;
                 }
+            });
+        </script>
+        <script>
+            const aboutToggle = document.getElementById('aboutToggle');
+                const aboutExtra = document.getElementById('aboutExtra');
+
+            aboutToggle.addEventListener('click', function () {
+                const expanded = aboutExtra.classList.toggle('expanded');
+
+                aboutToggle.textContent = expanded
+                    ? 'Weniger anzeigen'
+                    : 'Mehr über mich erfahren';
+
+                aboutToggle.setAttribute('aria-expanded', expanded);
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const slides = document.querySelectorAll('#about .about-slideshow .slide');
+
+                if (slides.length < 2) return;
+
+                let currentSlide = 0;
+
+                setInterval(function () {
+                    slides[currentSlide].classList.remove('active');
+
+                    currentSlide = (currentSlide + 1) % slides.length;
+
+                    slides[currentSlide].classList.add('active');
+                }, 6000);
             });
         </script>
     </body>
