@@ -171,11 +171,25 @@
             /* Галерея */
             .gallery {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 2rem;
                 margin: 3rem auto;
-                width: 100%;       /* allow it to fill screen */
-                max-width: none;   /* remove any limiting max-width */
+                width: 100%;
+            }
+
+            /* Tablets and smaller screens */
+            @media (max-width: 900px) {
+                .gallery {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            /* Mobile */
+            @media (max-width: 550px) {
+                .gallery {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                }
             }
 
             .gallery-item {
