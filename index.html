@@ -1,756 +1,560 @@
-    <!DOCTYPE html>
-    <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ekaterina Shangina - Künstlerin und Kunstlehrerin</title>
-        <style>
-            /* Основные стили */
-            :root {
-                --primary-white: #FFFFFF;
-                --primary-black: #000000;
-                --accent-gray: #F5F5F5;
-                --text-gray: #333333;
-            }
-            
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Helvetica Neue', Arial, sans-serif;
-            }
-            
-            body {
-                background-color: var(--primary-white);
-                color: var(--primary-black);
-                line-height: 1.6;
-            }
-            
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
-            
-            /* Типография */
-            h1, h2, h3 {
-                font-weight: 700;
-                letter-spacing: -0.5px;
-            }
-            
-            h1 {
-                font-size: 4rem;
-                margin-bottom: 1rem;
-            }
-            
-            h2 {
-                font-size: 2.5rem;
-                margin-bottom: 2rem;
-                position: relative;
-            }
-            
-            h2::after {
-                content: "";
-                position: absolute;
-                bottom: -10px;
-                left: 0;
-                width: 60px;
-                height: 3px;
-                background-color: var(--primary-black);
-            }
-            
-            p {
-                margin-bottom: 1.5rem;
-                font-size: 1.1rem;
-                color: var(--text-gray);
-            }
-            
-            /* Навигация */
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-white);
-                padding: 1.5rem 0;
-                z-index: 1000;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease; /* Add transition for smooth hide/show */
-            }
-            nav.hide-on-scroll {
-                transform: translateY(-100%);
-            }
-            nav.show-on-scroll {
-                transform: translateY(0);
-            }
-            
-            nav .container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .logo {
-                font-size: 1.5rem;
-                font-weight: 700;
-            }
-            
-            .nav-links {
-                display: flex;
-                list-style: none;
-            }
-            
-            .nav-links li {
-                margin-left: 2rem;
-            }
-            
-            .nav-links a {
-                text-decoration: none;
-                color: var(--primary-black);
-                font-weight: 500;
-                transition: all 0.3s ease;
-            }
-            
-            .nav-links a:hover {
-                opacity: 0.7;
-            }
-            
-            /* Секции */
-            section {
-                padding: 6rem 0;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-            }
-            
-            /* Главная секция */
-            .hero {
-                text-align: center;
-                position: relative;
-            }
-            
-            .hero-content {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-                opacity: 0.8;
-            }
-            
-            .hidden-gallery-item {
-                display: none !important;
-            }
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekaterina Shangina - Künstlerin und Kunstlehrerin</title>
+    <style>
+        /* ===== Base / Reset ===== */
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-black: #000000;
+            --accent-gray: #F5F5F5;
+            --text-gray: #333333;
+        }
 
-            /* Обо мне */
-            .about-content {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr); /* три равные колонки */
-                gap: 2rem; /* можно уменьшить отступ, чтобы не было слишком широко */
-                align-items: start; /* чтобы элементы выравнивались сверху */
-            }
-            
-            /* Опыт работы */
-            .experience-item {
-                margin-bottom: 3rem;
-            }
-            
-            .experience-item h3 {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .experience-date {
-                font-style: italic;
-                margin-bottom: 1rem;
-                opacity: 0.7;
-            }
-            
-            /* Галерея */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-black);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+        }
+
+        /* ===== Layout / Sections ===== */
+        section {
+            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ===== Navigation ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-white);
+            padding: 1.5rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        nav.hide-on-scroll {
+            transform: translateY(-100%);
+        }
+
+        nav.show-on-scroll {
+            transform: translateY(0);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .experimental-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--primary-black);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* ===== About ===== */
+        #about .about-content {
+            display: flow-root; /* contains the floated photos */
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #about .about-content p {
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        #about .about-intro {
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        /* Photos sit inside the text; text wraps around them */
+        #about .about-photo {
+            width: 190px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #about .about-photo-left {
+            float: left;
+            margin: 0.3rem 2rem 1rem 0;
+        }
+
+        #about .about-photo-right {
+            float: right;
+            margin: 0.3rem 0 0 2rem;
+        }
+
+        /* ===== Galleries ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--primary-white);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-caption > p {
+            color: var(--primary-white);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .hidden-gallery-item {
+            display: none !important;
+        }
+
+        .show-more-btn {
+            flex: 0 0 auto;
+            min-width: 200px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #444, #222);
+            color: white;
+            border: 2px solid #666;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .show-more-btn:hover {
+            background: linear-gradient(135deg, #666, #333);
+            transform: scale(1.05);
+            border-color: #aaa;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox img.lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            margin: auto;
+            display: block;
+        }
+
+        .lightbox-caption {
+            color: #fff;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .lightbox button.prev,
+        .lightbox button.next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 50px;
+            cursor: pointer;
+            padding: 0 20px;
+            user-select: none;
+        }
+
+        .lightbox button.prev { left: 0; }
+        .lightbox button.next { right: 0; }
+
+        /* ===== Exhibitions ===== */
+        .exhibitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .exhibition-item {
+            padding: 2rem;
+            background-color: var(--accent-gray);
+        }
+
+        /* ===== Contact ===== */
+        .contact-info {
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
             .gallery {
-                display: grid;
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 2rem;
-                margin: 3rem auto;
-                width: 100%;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
             }
 
-            /* Tablets and smaller screens */
-            @media (max-width: 900px) {
-                .gallery {
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
+            h2 {
+                font-size: 2rem;
             }
 
-            /* Mobile */
-            @media (max-width: 550px) {
-                .gallery {
-                    grid-template-columns: 1fr;
-                    gap: 1rem;
-                }
-            }
-
-            .gallery-item {
-                position: relative;
-                overflow: hidden;
-                aspect-ratio: 1/1;
-            }
-            
-            /* Общий стиль для всех картинок */
-            img {
-                max-width: 100%;
-                height: auto;
-                display: block;
-                border-radius: 8px;          /* скругленные углы */
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* мягкая тень */
-                margin: 0 auto;              /* выравнивание по центру */
-            }
-
-            /* Галерея работ */
-            .gallery-item img {
-                width: 100%;      /* Responsive width */
-                height: auto;
-                display: block;
-                margin: 0 auto;
-                object-fit: cover;
-            }
-
-            .gallery-item:hover img {
-                transform: scale(1.05);
-            }
-            
-            .gallery-caption {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: var(--primary-white);
                 position: absolute;
-                bottom: 0;
+                top: 70px;
                 left: 0;
                 width: 100%;
-                padding: 1rem;
-                background: rgba(0, 0, 0, 0.7);
-                color: var(--primary-white);
-                transform: translateY(100%);
-                transition: transform 0.3s ease;
-                cursor: pointer;
-            }
-
-            .gallery-caption > p {
-                color: var(--primary-white);
-            }        
-            .gallery-item:hover .gallery-caption {
-                transform: translateY(0);
-            }
-            
-            
-            /* Выставки */
-            .exhibitions-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2rem;
-            }
-            
-            .exhibition-item {
-                padding: 2rem;
-                background-color: var(--accent-gray);
-            }
-            
-            /* Ученики */
-            .students-gallery {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                gap: 1.5rem;  /* расстояние между картинки */
-                justify-items: center; /* центрируем картинки в ячейке */
-            }
-
-            .students-gallery img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
+                padding: 1rem 0;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
-            
-            
-            /* Проекты */
-            .projects-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2rem;
-            }
-            
-            .project-item {
-                margin-bottom: 2rem;
-            }
-            
-            /* Контакты */
-            .contact-info {
-                margin-top: 2rem;
-            }
-            
-            .contact-item {
-                display: flex;
-                align-items: center;
-                margin-bottom: 1.5rem;
-            }
-            
-            .contact-icon {
-                margin-right: 1rem;
-                font-size: 1.5rem;
-            }
-            
-            /* Футер */
-            footer {
-                padding: 3rem 0;
+
+            .nav-links li {
+                margin: 1rem 0;
                 text-align: center;
-                background-color: var(--primary-black);
-                color: var(--primary-white);
             }
-            
-            /* Экспериментальные элементы */
-            .experimental-element {
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                border: 2px solid var(--primary-black);
-                opacity: 0.1;
-                z-index: -1;
-            }
-            
+
             .mobile-menu-toggle {
-                display: none; /* скрыта на больших экранах */
-                font-size: 2rem;
-                cursor: pointer;
+                display: block;
             }
 
-
-
-            /* Адаптивность */
-            @media (max-width: 768px) {
-                h1 {
-                    font-size: 3rem;
-                }
-                
-                h2 {
-                    font-size: 2rem;
-                }
-                
-                .about-content {
-                    grid-template-columns: 1fr;
-                    gap: 2rem;
-                }
-                
-                .nav-links {
-                    display: none;
-                }
-
-                .nav-links {
-                    display: none; /* скрыта по умолчанию */
-                    flex-direction: column;
-                    background-color: var(--primary-white);
-                    position: absolute;
-                    top: 70px;
-                    left: 0;
-                    width: 100%;
-                    padding: 1rem 0;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                }
-
-                .nav-links li {
-                    margin: 1rem 0;
-                    text-align: center;
-                }
-
-                .mobile-menu-toggle {
-                    display: block; /* показываем на мобильных */
-                }
-
-                .nav-links.active {
-                    display: flex;
-                }
-            }
-
-            /* Lightbox overlay */
-            .lightbox {
-                display: none;
-                position: fixed;
-                z-index: 999;
-                top: 0; 
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.9);
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-                flex-direction: column; /* Added to stack elements vertically */
-            }
-
-            .lightbox-content {
+            .nav-links.active {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                max-width: 90%;
-                max-height: 90%;
             }
+        }
 
-            .lightbox img.lightbox-img {
-                max-width: 100%;
-                max-height: 80vh;
-                margin: auto;
-                display: block;
-            }
-
-            .lightbox-caption {
-                color: #fff;
-                text-align: center;
-                margin-top: 1rem;
-                font-size: 1.2rem;
-                width: 100%; /* Ensure caption spans full width */
-            }
-
-            .lightbox .close {
-                position: absolute;
-                top: 20px;
-                right: 30px;
-                color: #fff;
-                font-size: 40px;
-                cursor: pointer;
-            }
-
-            .lightbox button.prev,
-            .lightbox button.next {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: none;
-                border: none;
-                color: #fff;
-                font-size: 50px;
-                cursor: pointer;
-                padding: 0 20px;
-                user-select: none;
-            }
-
-            .lightbox button.prev { left: 0; }
-            .lightbox button.next { right: 0; } 
-
-            .show-more-btn {
-                flex: 0 0 auto;
-                min-width: 200px;
-                aspect-ratio: 1 / 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.2rem;
-                font-weight: bold;
-                background: linear-gradient(135deg, #444, #222);
-                color: white;
-                border: 2px solid #666;
-                border-radius: 12px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
-            .show-more-btn:hover {
-                background: linear-gradient(135deg, #666, #333);
-                transform: scale(1.05);
-                border-color: #aaa;
-            }
-        </style>
-
-        <style>
-            /* Über mich */
-            #about .about-content {
-                display: grid;
-                grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
-                gap: 3rem;
-                align-items: start;
-                max-width: 1100px;
-                margin: 0 auto;
-            }
-
-            #about .about-image {
-                width: 100%;
-            }
-
-            #about .about-image img {
+        @media (max-width: 650px) {
+            #about .about-photo {
+                float: none;
                 display: block;
                 width: 100%;
-                max-width: 320px;
-                height: auto;
-                border-radius: 8px;
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+                max-width: 260px;
+                margin: 0 auto 1.5rem;
             }
+        }
 
-            #about .about-text {
-                min-width: 0;
-                text-align: left;
+        @media (max-width: 550px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
+        }
+    </style>
+</head>
 
-            #about .about-text p {
-                line-height: 1.8;
-                margin-bottom: 1.2rem;
-            }
-
-            #about .about-intro {
-                font-size: 1.15rem;
-                font-weight: 500;
-            }
-
-            /* Collapsible text */
-            #about .about-extra {
-                display: none;
-            }
-
-            #about .about-extra.expanded {
-                display: block;
-            }
-
-            /* Toggle button */
-            #about .about-toggle {
-                display: inline-block;
-                margin-top: 0.5rem;
-                padding: 0.75rem 1.4rem;
-                background-color: transparent;
-                color: #333;
-                border: 1px solid #333;
-                border-radius: 6px;
-                cursor: pointer;
-                font: inherit;
-                transition: background-color 0.3s, color 0.3s;
-            }
-
-            #about .about-toggle:hover {
-                background-color: #333;
-                color: white;
-            }
-
-            /* Tablet */
-            @media (max-width: 900px) {
-                #about .about-content {
-                    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-                    gap: 2rem;
-                }
-            }
-
-            /* Mobile */
-            @media (max-width: 650px) {
-                #about .about-content {
-                    grid-template-columns: 1fr;
-                    gap: 1.5rem;
-                }
-
-                #about .about-image img {
-                    max-width: 280px;
-                    margin: 0 auto;
-                }
-
-                #about .about-text {
-                    width: 100%;
-                }
-            }
-
-            /* About photo slideshow */
-            #about .about-slideshow {
-                position: relative;
-                width: 100%;
-                max-width: 320px;
-                aspect-ratio: 3 / 4;
-                overflow: hidden;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                margin-top: 1rem;
-            }
-
-            #about .about-slideshow .slide {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0;
-                transition: opacity 1.8s ease-in-out;
-                display: block;
-            }
-
-            #about .about-slideshow .slide.active {
-                opacity: 1;
-            }
-
-            @media (max-width: 650px) {
-                #about .about-slideshow {
-                    max-width: 280px;
-                    margin: 0 auto;
-                }
-            }
-
-/* Unterricht */
-.ununterricht-section,
-.ununterricht-section {
-    background-color: #F5F5F5;
-}
-
-.ununterricht-content {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.ununterricht-section h2 {
-    margin-bottom: 2.5rem;
-}
-
-.ununterricht-content p {
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-}
-
-.ununterricht-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 3rem;
-    align-items: start;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .ununterricht-content {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-}
-        </style>
-  
-    </head>
-
-    <body>
-        <!-- Навигация -->
-        <nav>
-            <div class="container">
-                <div class="logo">EKATERINA SHANGINA</div>
-                <div class="mobile-menu-toggle">☰</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">Über mich</a></li>
-                    <li><a href="#works">Arbeiten</a></li>
-                    <li><a href="#exhibitions">Ausstellungen</a></li>
-                    <li><a href="#students">Schüler</a></li>
-                    <li><a href="#projects">Projekte</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div id="lightbox" class="lightbox">
-            <span class="close">&times;</span>
-            <div class="lightbox-content">
-                <img class="lightbox-img" src="" alt="">
-                <div class="lightbox-caption"></div>
-            </div>
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
+<body>
+    <!-- Навигация -->
+    <nav>
+        <div class="container">
+            <div class="logo">EKATERINA SHANGINA</div>
+            <div class="mobile-menu-toggle">☰</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#works">Arbeiten</a></li>
+                <li><a href="#exhibitions">Ausstellungen</a></li>
+                <li><a href="#students">Schüler</a></li>
+                <li><a href="#projects">Projekte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
         </div>
-        <!-- Главная секция -->
-        <section id="home" class="hero">
-            <div class="container hero-content">
-                <h1>PORTFOLIO</h1>
-                <p class="hero-subtitle">Ekaterina Shangina<br>
-                    Freischaffende Künstlerin & Kunstlehrerin<br>
-                    Leipzig, Deutschland</p>
-                <h2>Ekaterina Shangina</h2>
-            </div>
-            <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
-            <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
-        </section>
+    </nav>
 
-<!-- Über mich -->
-<section id="about" style="background-color: #F5F5F5;">
-    <div class="container">
-        <h2>EIN WENIG ÜBER MICH</h2>
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
 
-        <div class="about-content">
-            <div class="about-image">
-                <div class="about-slideshow">
-                    <img src="images/main2.jpeg" class="slide active" alt="Ekaterina Shangina">
-                    <img src="images/main3.jpeg" class="slide" alt="Ekaterina Shangina">
-                    <img src="images/main4.jpeg" class="slide" alt="Ekaterina Shangina">
-                    <img src="images/main5.jpeg" class="slide" alt="Ekaterina Shangina">
-                </div>
-            </div>
+    <!-- Главная секция -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>PORTFOLIO</h1>
+            <p class="hero-subtitle">Ekaterina Shangina<br>
+                Freischaffende Künstlerin & Kunstlehrerin<br>
+                Leipzig, Deutschland</p>
+            <h2>Ekaterina Shangina</h2>
+        </div>
+        <div class="experimental-element" style="top: 20%; left: 5%; transform: rotate(45deg);"></div>
+        <div class="experimental-element" style="bottom: 30%; right: 10%; transform: rotate(20deg);"></div>
+    </section>
 
-            <div class="about-text">
+    <!-- Über mich -->
+    <section id="about" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>EIN WENIG ÜBER MICH</h2>
+
+            <div class="about-content">
+                <img src="images/main2.jpeg" class="about-photo about-photo-left" alt="Ekaterina Shangina">
+
                 <p class="about-intro">
                     Mein Lieblingsmotto lautet „Wenn du nicht weiterweißt – zeichne!“
                     Genau das hat mir geholfen und hilft mir bis heute,
                     mit Schwierigkeiten umzugehen.
                 </p>
 
-                <div class="about-extra" id="aboutExtra">
-                    <p>
-                        Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig
-                        und an Wohltätigkeitsveranstaltungen teil; ein Großteil
-                        meiner Bilder befindet sich in Privatsammlungen.
-                        Ich male mit Öl, Acryl, Aquarell, Gouache und grafischen
-                        Materialien. Ich praktiziere Pleinair-Malen und Skizzieren
-                        nach der Natur.
-                    </p>
+                <p>
+                    Seit 2018 nehme ich jährlich an der Nacht der Kunst Leipzig
+                    und an Wohltätigkeitsveranstaltungen teil; ein Großteil
+                    meiner Bilder befindet sich in Privatsammlungen.
+                    Ich male mit Öl, Acryl, Aquarell, Gouache und grafischen
+                    Materialien. Ich praktiziere Pleinair-Malen und Skizzieren
+                    nach der Natur.
+                </p>
 
-                    <p>
-                        Meine Leidenschaft für die Arbeit mit jungen Menschen habe
-                        ich seit 2021 als ehrenamtliche Lehrerin beim Jugendverein
-                        IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit
-                        so viel Freude bereitete, entschloss ich mich 2024,
-                        meine künstlerische Expertise und meine pädagogische
-                        Begeisterung zum Beruf zu machen und mich als selbstständige
-                        Künstlerin und Kunstlehrerin zu registrieren.
-                        Seither unterrichte ich mit großer Freude eigene private
-                        Gruppen sowie Online-Kurse.
-                    </p>
-                </div>
+                <img src="images/main3.jpeg" class="about-photo about-photo-right" alt="Ekaterina Shangina">
 
-                <button class="about-toggle"
-                        id="aboutToggle"
-                        type="button"
-                        aria-expanded="false"
-                        aria-controls="aboutExtra">
-                    Mehr über mich erfahren
-                </button>
+                <p>
+                    Meine Leidenschaft für die Arbeit mit jungen Menschen habe
+                    ich seit 2021 als ehrenamtliche Lehrerin beim Jugendverein
+                    IUVENTUS entdeckt und vertieft. Da mir diese Tätigkeit
+                    so viel Freude bereitete, entschloss ich mich 2024,
+                    meine künstlerische Expertise und meine pädagogische
+                    Begeisterung zum Beruf zu machen und mich als selbstständige
+                    Künstlerin und Kunstlehrerin zu registrieren.
+                    Seither unterrichte ich mit großer Freude eigene private
+                    Gruppen sowie Online-Kurse.
+                </p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-        <!-- Работы -->
-        <section id="works">
-            <div class="container">
-                <h2>BUILDERSERIE "EINFACH ÜBER DAS WESENTLICHE"</h2>
-                <p>In dieser Bilderserie wollte ich ein Gefühl von Ruhe, Sicherheit und Geborgenheit vermitteln – genau jenen inneren Frieden, nach dem sich die Seele so sehr sehnt.</p>
-                <p>In den schlichten Formen verbirgt sich die monumentale Präsenz unsichtbarer Kräfte, die uns jeden Tag begleiten. Und Gebete sind wie Vögel in die Bildmotive verwoben: Leicht und unaufhaltsam steigen sie empor und erinnern uns daran, dass die Hinwendung zum Höheren keine Stille der Leere ist, sondern eine lebendige, aufrichtige Begegnung im Gespräch.</p>
-                <div folder="my-works" class="gallery"></div>
-            </div>
-        </section>
+    <!-- Работы -->
+    <section id="works">
+        <div class="container">
+            <h2>BUILDERSERIE "EINFACH ÜBER DAS WESENTLICHE"</h2>
+            <p>In dieser Bilderserie wollte ich ein Gefühl von Ruhe, Sicherheit und Geborgenheit vermitteln – genau jenen inneren Frieden, nach dem sich die Seele so sehr sehnt.</p>
+            <p>In den schlichten Formen verbirgt sich die monumentale Präsenz unsichtbarer Kräfte, die uns jeden Tag begleiten. Und Gebete sind wie Vögel in die Bildmotive verwoben: Leicht und unaufhaltsam steigen sie empor und erinnern uns daran, dass die Hinwendung zum Höheren keine Stille der Leere ist, sondern eine lebendige, aufrichtige Begegnung im Gespräch.</p>
+            <div folder="my-works" class="gallery"></div>
+        </div>
+    </section>
 
-        <!-- Выставки -->
-        <section id="exhibitions" style="background-color: #F5F5F5;">
-            <div class="container">
-                <h2>AUSSTELLUNGEN UND VERANSTALTUNGEN</h2>
-                <div class="exhibitions-grid">
-                    <div class="exhibition-item">
-                        <h3>Nacht der Kunst, Leipzig 2024</h3>
-                        <p>Die Ausstellung fand in einer alten katholischen Kirche in Deutschland statt (ich nehme seit 2019 jedes Jahr teil).</p>
-                    </div>
-                    <div class="exhibition-item">
-                        <h3>Wohltätigkeitsausstellung „Von Herz zu Herz“ 2025</h3>
-                        <p>Ein Teil des Verkaufserlöses der Bilder wird zur Unterstützung krebskranker Kinder gespendet. Ich nehme seit 2018 jährlich teil.</p>
-                    </div>
+    <!-- Выставки -->
+    <section id="exhibitions" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>AUSSTELLUNGEN UND VERANSTALTUNGEN</h2>
+            <div class="exhibitions-grid">
+                <div class="exhibition-item">
+                    <h3>Nacht der Kunst, Leipzig 2024</h3>
+                    <p>Die Ausstellung fand in einer alten katholischen Kirche in Deutschland statt (ich nehme seit 2019 jedes Jahr teil).</p>
+                </div>
+                <div class="exhibition-item">
+                    <h3>Wohltätigkeitsausstellung „Von Herz zu Herz“ 2025</h3>
+                    <p>Ein Teil des Verkaufserlöses der Bilder wird zur Unterstützung krebskranker Kinder gespendet. Ich nehme seit 2018 jährlich teil.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Unterricht -->
-        <section id="exhibitions" class="unterricht-section">
-            <div class="container">
-                <div class="unterricht-content">
+    <!-- Unterricht -->
+    <section id="exhibitions" class="unterricht-section">
+        <div class="container">
+            <div class="unterricht-content">
                 <h2>Mein Unterricht</h2>
 
                 <div class="unterricht-content">
@@ -790,432 +594,387 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-            <div folder="projects" show-caption class="gallery"></div>
-                </div>
-        </section>
 
-        <!-- Ученики -->
-        <section id="students" style="background-color: #F5F5F5;">
             <div class="container">
-                <h2>MEINE SCHÜLER</h2>
-                <div class="gallery" folder="students"></div>
+                <div folder="projects" show-caption class="gallery"></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Проекты -->
-        <section id="projects">
-            <div class="container">
-                <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
-                <div folder="student-works" class="gallery"></div>
-                <h3 style="margin-top: 3rem;">ONLINEUNTERRICHTE</h3>
-                <div folder="online-lessons" class="gallery">
-                    
+    <!-- Ученики -->
+    <section id="students" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>MEINE SCHÜLER</h2>
+            <div class="gallery" folder="students"></div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section id="projects">
+        <div class="container">
+            <h3 style="margin-top: 3rem;">ARBEITEN DER SCHÜLER IM RAHMEN VERSCHIEDENER WORKSHOPS UND MEISTERKLASSEN</h3>
+            <div folder="student-works" class="gallery"></div>
+            <h3 style="margin-top: 3rem;">ONLINEUNTERRICHTE</h3>
+            <div folder="online-lessons" class="gallery"></div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" style="background-color: #F5F5F5;">
+        <div class="container">
+            <h2>KONTAKT</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>shanginaes@gmail.com</div>
                 </div>
-        </section>
-
-        <!-- Контакты -->
-        <section id="contact" style="background-color: #F5F5F5;">
-            <div class="container">
-                <h2>KONTAKT</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>shanginaes@gmail.com</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📷</div>
-                        <div>@Katjashangina</div>
-                    </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📷</div>
+                    <div>@Katjashangina</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Футер -->
-        <footer>
-            <div class="container">
-                <p>© 2024 Ekaterina Shangina. Alle Rechte vorbehalten.</p>
-            </div>
-        </footer>
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Ekaterina Shangina. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
 
-        <script>
-            // Плавная прокрутка для навигации
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    
-                    // Проверяем, является ли ссылка якорем на странице
-                    if (targetId.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(targetId);
-                        
-                        if (targetElement) {
-                            const offsetTop = targetElement.offsetTop - 80; // Учет фиксированного навбара
-                            
-                            window.scrollTo({
-                                top: offsetTop,
-                                behavior: 'smooth'
-                            });
-                        }
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+
+                // Проверяем, является ли ссылка якорем на странице
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 80; // Учет фиксированного навбара
+
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаем за секциями
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+
+        // Мобильное меню
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                toggle.setAttribute('aria-expanded',
+                    navLinks.classList.contains('active').toString()
+                );
+            });
+
+            // Close mobile menu on menu item click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        toggle.setAttribute('aria-expanded', 'false');
                     }
                 });
             });
+        }
 
-            // Анимация появления элементов при прокрутке
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        // Hide/show nav on scroll direction
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        let scrollTimeout;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
+        if (nav) {
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Очищаем предыдущий таймаут
+                clearTimeout(scrollTimeout);
+
+                // Показываем навбар при скролле вверх
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    nav.classList.remove('show-on-scroll');
+                    nav.classList.add('hide-on-scroll');
+                } else {
+                    // Scrolling up
+                    nav.classList.remove('hide-on-scroll');
+                    nav.classList.add('show-on-scroll');
+                }
+
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+                // Автоматически скрываем навбар после прекращения скролла
+                scrollTimeout = setTimeout(() => {
+                    nav.classList.remove('show-on-scroll');
+                    nav.classList.add('hide-on-scroll');
+                }, 2000);
+            }, false);
+
+            // Initialize nav as visible
+            nav.classList.add('show-on-scroll');
+        }
+
+        // Утилиты
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Lightbox functionality
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = lightbox?.querySelector(".lightbox-img");
+        const captionDivLightbox = lightbox?.querySelector(".lightbox-caption");
+        const closeBtn = lightbox?.querySelector(".close");
+        const prevBtn = lightbox?.querySelector(".prev");
+        const nextBtn = lightbox?.querySelector(".next");
+
+        if (lightbox && lightboxImg && closeBtn && prevBtn && nextBtn) {
+            function openLightbox(index, gallery) {
+                currentGallery = gallery;
+                currentIndex = index;
+                updateLightbox();
+                lightbox.style.display = "flex";
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = "hidden";
+
+                // Фокус для accessibility
+                closeBtn.focus();
+            }
+
+            function updateLightbox() {
+                if (currentGallery[currentIndex]) {
+                    const item = currentGallery[currentIndex];
+                    lightboxImg.src = item.src;
+                    lightboxImg.alt = item.caption || 'Gallery image';
+                    if (captionDivLightbox) {
+                        captionDivLightbox.textContent = item.caption;
                     }
-                });
-            }, observerOptions);
+                }
+            }
 
-            // Наблюдаем за секциями
-            document.querySelectorAll('section').forEach(section => {
-                section.style.opacity = 0;
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(section);
+            function closeLightbox() {
+                lightbox.style.display = "none";
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = "";
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                updateLightbox();
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % currentGallery.length;
+                updateLightbox();
+            }
+
+            closeBtn.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", prevImage);
+            nextBtn.addEventListener("click", nextImage);
+
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener("click", e => {
+                if (e.target === lightbox) closeLightbox();
             });
 
-            // Мобильное меню
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
+            // Arrow keys
+            document.addEventListener("keydown", e => {
+                if (lightbox.style.display !== "flex") return;
 
-            if (toggle && navLinks) {
-                toggle.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                    toggle.setAttribute('aria-expanded', 
-                        navLinks.classList.contains('active').toString()
-                    );
-                });
-
-                // Close mobile menu on menu item click
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth <= 768) {
-                            navLinks.classList.remove('active');
-                            toggle.setAttribute('aria-expanded', 'false');
-                        }
-                    });
-                });
-            }
-
-            // Hide/show nav on scroll direction
-            let lastScrollTop = 0;
-            const nav = document.querySelector('nav');
-            let scrollTimeout;
-
-            if (nav) {
-                window.addEventListener('scroll', function() {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Очищаем предыдущий таймаут
-                    clearTimeout(scrollTimeout);
-                    
-                    // Показываем навбар при скролле вверх
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // Scrolling down
-                        nav.classList.remove('show-on-scroll');
-                        nav.classList.add('hide-on-scroll');
-                    } else {
-                        // Scrolling up
-                        nav.classList.remove('hide-on-scroll');
-                        nav.classList.add('show-on-scroll');
-                    }
-                    
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                    
-                    // Автоматически скрываем навбар после прекращения скролла
-                    scrollTimeout = setTimeout(() => {
-                        nav.classList.remove('show-on-scroll');
-                        nav.classList.add('hide-on-scroll');
-                    }, 2000);
-                }, false);
-
-                // Initialize nav as visible
-                nav.classList.add('show-on-scroll');
-            }
-
-            // Утилиты
-            function shuffleArray(array) {
-                const newArray = [...array];
-                for (let i = newArray.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                switch(e.key) {
+                    case "ArrowLeft":
+                        prevImage();
+                        break;
+                    case "ArrowRight":
+                        nextImage();
+                        break;
+                    case "Escape":
+                        closeLightbox();
+                        break;
                 }
-                return newArray;
-            }
+            });
+        }
 
-            // Lightbox functionality
-            let currentGallery = [];
-            let currentIndex = 0;
+        // Setup lightbox for galleries after they are loaded
+        function setupLightboxForGalleries() {
+            const galleries = document.querySelectorAll(".gallery");
 
-            const lightbox = document.getElementById("lightbox");
-            const lightboxImg = lightbox?.querySelector(".lightbox-img");
-            const captionDivLightbox = lightbox?.querySelector(".lightbox-caption");
-            const closeBtn = lightbox?.querySelector(".close");
-            const prevBtn = lightbox?.querySelector(".prev");
-            const nextBtn = lightbox?.querySelector(".next");
+            galleries.forEach(galleryDiv => {
+                const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
+                const galleryData = items.map(item => {
+                    const img = item.querySelector("img");
+                    const captionDiv = item.querySelector(".gallery-caption h3");
+                    return {
+                        src: img?.src || '',
+                        caption: captionDiv ? captionDiv.textContent.replace(/"/g, '') : ""
+                    };
+                }).filter(item => item.src); // Фильтруем элементы без src
 
-            if (lightbox && lightboxImg && closeBtn && prevBtn && nextBtn) {
-                function openLightbox(index, gallery) {
-                    currentGallery = gallery;
-                    currentIndex = index;
-                    updateLightbox();
-                    lightbox.style.display = "flex";
-                    lightbox.setAttribute('aria-hidden', 'false');
-                    document.body.style.overflow = "hidden";
-                    
-                    // Фокус для accessibility
-                    closeBtn.focus();
-                }
+                items.forEach((item, index) => {
+                    const clickableElement = item.querySelector(".gallery-caption") || item.querySelector("img");
 
-                function updateLightbox() {
-                    if (currentGallery[currentIndex]) {
-                        const item = currentGallery[currentIndex];
-                        lightboxImg.src = item.src;
-                        lightboxImg.alt = item.caption || 'Gallery image';
-                        if (captionDivLightbox) {
-                            captionDivLightbox.textContent = item.caption;
-                        }
-                    }
-                }
+                    if (clickableElement) {
+                        clickableElement.style.cursor = "pointer";
+                        clickableElement.addEventListener("click", () => {
+                            if (lightbox) {
+                                openLightbox(index, galleryData);
+                            }
+                        });
 
-                function closeLightbox() {
-                    lightbox.style.display = "none";
-                    lightbox.setAttribute('aria-hidden', 'true');
-                    document.body.style.overflow = "";
-                }
-
-                function prevImage() {
-                    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-                    updateLightbox();
-                }
-
-                function nextImage() {
-                    currentIndex = (currentIndex + 1) % currentGallery.length;
-                    updateLightbox();
-                }
-
-                closeBtn.addEventListener("click", closeLightbox);
-                prevBtn.addEventListener("click", prevImage);
-                nextBtn.addEventListener("click", nextImage);
-
-                // Close lightbox when clicking outside the image
-                lightbox.addEventListener("click", e => {
-                    if (e.target === lightbox) closeLightbox();
-                });
-
-                // Arrow keys
-                document.addEventListener("keydown", e => {
-                    if (lightbox.style.display !== "flex") return;
-                    
-                    switch(e.key) {
-                        case "ArrowLeft":
-                            prevImage();
-                            break;
-                        case "ArrowRight":
-                            nextImage();
-                            break;
-                        case "Escape":
-                            closeLightbox();
-                            break;
-                    }
-                });
-            }
-
-            // Setup lightbox for galleries after they are loaded
-            function setupLightboxForGalleries() {
-                const galleries = document.querySelectorAll(".gallery");
-                
-                galleries.forEach(galleryDiv => {
-                    const items = Array.from(galleryDiv.querySelectorAll(".gallery-item"));
-                    const galleryData = items.map(item => {
-                        const img = item.querySelector("img");
-                        const captionDiv = item.querySelector(".gallery-caption h3");
-                        return {
-                            src: img?.src || '',
-                            caption: captionDiv ? captionDiv.textContent.replace(/"/g, '') : ""
-                        };
-                    }).filter(item => item.src); // Фильтруем элементы без src
-
-                    items.forEach((item, index) => {
-                        const clickableElement = item.querySelector(".gallery-caption") || item.querySelector("img");
-                        
-                        if (clickableElement) {
-                            clickableElement.style.cursor = "pointer";
-                            clickableElement.addEventListener("click", () => {
+                        // Добавляем keyboard accessibility
+                        clickableElement.setAttribute('tabindex', '0');
+                        clickableElement.addEventListener('keypress', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
                                 if (lightbox) {
                                     openLightbox(index, galleryData);
                                 }
-                            });
-                            
-                            // Добавляем keyboard accessibility
-                            clickableElement.setAttribute('tabindex', '0');
-                            clickableElement.addEventListener('keypress', (e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault();
-                                    if (lightbox) {
-                                        openLightbox(index, galleryData);
-                                    }
-                                }
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
                 });
-            }
+            });
+        }
 
-            async function loadGalleries() {
-                    const galleries = document.querySelectorAll(".gallery[folder]");
+        async function loadGalleries() {
+            const galleries = document.querySelectorAll(".gallery[folder]");
 
-                    for (const gallery of galleries) {
-                    const folder = gallery.getAttribute("folder");
-                    const showCaption = gallery.hasAttribute("show-caption");
-                    const jsonPath = `/images/${folder}/index.json`;
+            for (const gallery of galleries) {
+                const folder = gallery.getAttribute("folder");
+                const showCaption = gallery.hasAttribute("show-caption");
+                const jsonPath = `/images/${folder}/index.json`;
 
-                    try {
-                        const response = await fetch(jsonPath);
-                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                        let files = await response.json();
+                try {
+                    const response = await fetch(jsonPath);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    let files = await response.json();
 
-                        // Валидация данных
-                        if (!Array.isArray(files)) {
-                            throw new Error('Invalid JSON format: expected array');
-                        }
+                    // Валидация данных
+                    if (!Array.isArray(files)) {
+                        throw new Error('Invalid JSON format: expected array');
+                    }
 
-                        // Shuffle images
-                        files = shuffleArray(files);
+                    // Shuffle images
+                    files = shuffleArray(files);
 
-                        // Очищаем галерею перед добавлением новых элементов
-                        gallery.innerHTML = '';
+                    // Очищаем галерею перед добавлением новых элементов
+                    gallery.innerHTML = '';
 
-                        // Add all items
-                        files.forEach((file, index) => {
-                            if (typeof file !== 'string') return; // Пропускаем некорректные данные
-                            
-                            const name = file.replace(/\.[^/.]+$/, "");
-                            let [caption, description] = name.split(" - ");
-                            caption = caption || "Untitled";
-                            description = description || "";
+                    // Add all items
+                    files.forEach((file, index) => {
+                        if (typeof file !== 'string') return; // Пропускаем некорректные данные
 
-                            const item = document.createElement("div");
-                            item.className = "gallery-item";
+                        const name = file.replace(/\.[^/.]+$/, "");
+                        let [caption, description] = name.split(" - ");
+                        caption = caption || "Untitled";
+                        description = description || "";
 
-                            item.innerHTML = `
-                                <img src="/images/${folder}/${file}" alt="${caption}" loading="lazy">
-                                ${showCaption ? `
-                                <div class="gallery-caption">
-                                    <h3>${caption}</h3>
-                                    <p>${description}</p>
-                                </div>` : ''}
-                            `;
+                        const item = document.createElement("div");
+                        item.className = "gallery-item";
 
-                            gallery.appendChild(item);
+                        item.innerHTML = `
+                            <img src="/images/${folder}/${file}" alt="${caption}" loading="lazy">
+                            ${showCaption ? `
+                            <div class="gallery-caption">
+                                <h3>${caption}</h3>
+                                <p>${description}</p>
+                            </div>` : ''}
+                        `;
+
+                        gallery.appendChild(item);
+                    });
+
+                    // Limit visible to 5 (rest scrollable)
+                    const items = gallery.querySelectorAll(".gallery-item");
+                    let visibleCount = 5;
+
+                    if (items.length > visibleCount) {
+                        items.forEach((item, idx) => {
+                            if (idx >= visibleCount) {
+                                item.classList.add('hidden-gallery-item'); // ← Используем класс
+                            }
                         });
 
-                        // Limit visible to 5 (rest scrollable)
-                        const items = gallery.querySelectorAll(".gallery-item");
-                        let visibleCount = 5;
+                        const showMore = document.createElement("button");
+                        showMore.className = "show-more-btn";
+                        showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
 
-                        if (items.length > visibleCount) {
-                            items.forEach((item, idx) => {
-                                if (idx >= visibleCount) {
-                                    item.classList.add('hidden-gallery-item'); // ← Используем класс
-                                }
-                            });
+                        showMore.onclick = () => {
+                            const nextCount = Math.min(visibleCount + 5, items.length);
 
-                            const showMore = document.createElement("button");
-                            showMore.className = "show-more-btn";
-                            showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
+                            for (let i = visibleCount; i < nextCount; i++) {
+                                items[i].classList.remove('hidden-gallery-item'); // ← Убираем класс
+                            }
 
-                            showMore.onclick = () => {
-                                const nextCount = Math.min(visibleCount + 5, items.length);
-                                
-                                for (let i = visibleCount; i < nextCount; i++) {
-                                    items[i].classList.remove('hidden-gallery-item'); // ← Убираем класс
-                                }
-                                
-                                visibleCount = nextCount;
+                            visibleCount = nextCount;
 
-                                if (visibleCount >= items.length) {
-                                    showMore.remove();
-                                } else {
-                                    showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
-                                }
-                            };
+                            if (visibleCount >= items.length) {
+                                showMore.remove();
+                            } else {
+                                showMore.textContent = `+ Show more (${items.length - visibleCount} remaining)`;
+                            }
+                        };
 
-                            gallery.appendChild(showMore);
-                        }
-
-                    } catch (err) {
-                        console.error(`Error loading gallery ${folder}:`, err);
-                        gallery.innerHTML = `<p class="error-message">Failed to load gallery: ${folder}. ${err.message}</p>`;
+                        gallery.appendChild(showMore);
                     }
+
+                } catch (err) {
+                    console.error(`Error loading gallery ${folder}:`, err);
+                    gallery.innerHTML = `<p class="error-message">Failed to load gallery: ${folder}. ${err.message}</p>`;
                 }
-                
-                // Setup lightbox after galleries are loaded
-                setupLightboxForGalleries();
             }
 
-            // Загрузка при полной загрузке DOM
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadGalleries);
-            } else {
-                loadGalleries();
-            }
+            // Setup lightbox after galleries are loaded
+            setupLightboxForGalleries();
+        }
 
-            // Оптимизация для производительности
-            let ticking = false;
-
-            function updateOnScroll() {
-                // Код, который должен выполняться при скролле
-                ticking = false;
-            }
-
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(updateOnScroll);
-                    ticking = true;
-                }
-            });
-        </script>
-        <script>
-            const aboutToggle = document.getElementById('aboutToggle');
-                const aboutExtra = document.getElementById('aboutExtra');
-
-            aboutToggle.addEventListener('click', function () {
-                const expanded = aboutExtra.classList.toggle('expanded');
-
-                aboutToggle.textContent = expanded
-                    ? 'Weniger anzeigen'
-                    : 'Mehr über mich erfahren';
-
-                aboutToggle.setAttribute('aria-expanded', expanded);
-            });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const slides = document.querySelectorAll('#about .about-slideshow .slide');
-
-                if (slides.length < 2) return;
-
-                let currentSlide = 0;
-
-                setInterval(function () {
-                    slides[currentSlide].classList.remove('active');
-
-                    currentSlide = (currentSlide + 1) % slides.length;
-
-                    slides[currentSlide].classList.add('active');
-                }, 6000);
-            });
-        </script>
-    </body>
-    </html>
+        // Загрузка при полной загрузке DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadGalleries);
+        } else {
+            loadGalleries();
+        }
+    </script>
+</body>
+</html>
