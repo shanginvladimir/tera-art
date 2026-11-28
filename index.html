@@ -59,6 +59,11 @@
             background-color: var(--primary-black);
         }
 
+        /* Hero heading stays centered; shrink its box to the text so the underline starts under the first letters */
+        .hero h2 {
+            display: inline-block;
+        }
+
         p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
@@ -71,6 +76,11 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+        }
+
+        /* Section containers fill the width (max 1200px) instead of shrinking to their content */
+        section > .container {
+            width: 100%;
         }
 
         /* ===== Navigation ===== */
